@@ -2,53 +2,32 @@ namespace Research;
 
 class Person
 {
-    private string name;
-    public string Name
-    {
-        get { return name; }
-    }
+    private string _name;
+    private string _surname;
+    private DateTime _birthday;
 
-    private string surname;
-    public string Surname
-    {
-        get { return surname; }
-    }
+    public string Name => _name;
 
-    private DateTime birthday;
+    public string Surname => _surname;
 
-    public DateTime Birthday
-    {
-        get { return birthday; }
-    }
+    public DateTime BirthDay => _birthday;
 
     public int Age
     {
-        get { return DateTime.Now.Year - birthday.Year; }
-        init { birthday = DateTime.Now.AddYears(-value); }
-    }
-
-
-    public Person()
-    {
-        this.name = "John";
-        this.surname = "Doe";
-        this.birthday = new DateTime(1990, 1, 1);
+        get { return DateTime.Now.Year - _birthday.Year; }
+        init { _birthday = DateTime.Now.AddYears(-value); }
     }
 
     public Person(string name, string surname, DateTime birthday)
     {
-        this.name = name;
-        this.surname = surname;
-        this.birthday = birthday;
+        _name = name;
+        _surname = surname;
+        _birthday = birthday;
     }
 
-    public override string ToString()
-    {
-        return $"{name} {surname} ({birthday.ToShortDateString()})";
-    }
+    public Person() : this("John", "Doe", new DateTime(1990, 1, 1)) { }
 
-    public virtual string ToShortString()
-    {
-        return $"{name} {surname}";
-    }
+    public override string ToString() => $"{_name} {_surname} ({_birthday.ToShortDateString()})";
+
+    public virtual string ToShortString() => $"{_name} {_surname}";
 }

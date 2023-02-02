@@ -3,8 +3,8 @@ namespace Research;
 class Paper
 {
     public string Title { get; set; }
-    public Person Author { get; set; }
-    public DateTime PublishDate { get; set; }
+    public Person Author { get; init; } = default!;
+    public DateTime PublishDate { get; init; } = default!;
 
     public Paper(string title, Person author, DateTime publishDate)
     {
@@ -13,15 +13,7 @@ class Paper
         PublishDate = publishDate;
     }
 
-    public Paper()
-    {
-        Title = "Untitled";
-        Author = new Person();
-        PublishDate = DateTime.Now;
-    }
+    public Paper() : this("Untitled", new Person(), DateTime.Now) { }
 
-    public override string ToString()
-    {
-        return $"{Title} by {Author.ToShortString()} ({PublishDate.ToShortDateString()})";
-    }
+    public override string ToString() => $"{Title} by {Author.ToShortString()} ({PublishDate.ToShortDateString()})";
 }

@@ -12,7 +12,7 @@ class Program
         Console.WriteLine($"Is research team working on C# for two years? {microsoftResearch[TimeFrame.TwoYears]}");
         Console.WriteLine($"Is research team working on C# for long? {microsoftResearch[TimeFrame.Long]}");
 
-        ResearchTeam oracleResearch = new ResearchTeam()
+        ResearchTeam oracleResearch = new()
         {
             Topic = "Java",
             Organization = "Oracle",
@@ -36,14 +36,17 @@ class Program
         Console.WriteLine($"Last publication: {oracleResearch.LastPublication}");
 
         Console.WriteLine("Enter nRows and nColumns (delimeter is space):");
+        // TODO: create chars of delimeter and Split
         string[] input = Console.ReadLine()?.Split(' ') ?? new string[2] { "3", "2" };
 
         int rows = int.Parse(input[0]);
         int columns = int.Parse(input[1]);
 
-        Paper[,] papers = PaperExtension.GetMatrix(rows, columns);
+        Paper[,] papers = PaperExtension.GenerateMatrix(rows, columns);
         int timeElapsed;
 
+
+        // TODO: operation
 
         timeElapsed = GetTimeElapsed(() =>
         {
@@ -63,7 +66,7 @@ class Program
         Console.WriteLine($"Time elapsed of find max publish date in matrix with {rows} rows and {columns} columns: {timeElapsed} ms");
 
 
-        Paper[] papersArray = PaperExtension.ToArray(papers);
+        Paper[] papersArray = PaperExtension.GenerateArray(rows * columns);
 
         timeElapsed = GetTimeElapsed(() =>
         {
@@ -80,7 +83,7 @@ class Program
 
         Console.WriteLine($"Time elapsed of one-dimensional array with {rows * columns} columns: {timeElapsed} ms");
 
-        Paper[][] papersJaggedArray = PaperExtension.ToJaggedArray(papers);
+        Paper[][] papersJaggedArray = PaperExtension.GenerateJaggedArray(rows * columns);
 
         timeElapsed = GetTimeElapsed(() =>
         {

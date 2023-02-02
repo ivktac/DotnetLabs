@@ -2,52 +2,45 @@ namespace Research;
 
 internal static class PaperExtension
 {
-    internal static Paper[][] ToJaggedArray(Paper[,] twoDimensionalArray)
+    internal static Paper[][] GenerateJaggedArray(int size)
     {
-        int rowFirstIndex = twoDimensionalArray.GetLowerBound(0);
-        int rowLastIndex = twoDimensionalArray.GetUpperBound(0);
-        int numberOfRows = rowLastIndex + 1;
+        int n = (int)Math.Ceiling((Math.Sqrt(8 * size + 1) - 1) / 2);
+        Paper[][] papers = new Paper[n][];
 
-        int columnFirstIndex = twoDimensionalArray.GetLowerBound(1);
-        int columnLastIndex = twoDimensionalArray.GetUpperBound(1);
-        int numberOfColumns = columnLastIndex + 1;
-
-        Paper[][] jaggedArray = new Paper[numberOfRows][];
-        for (int i = rowFirstIndex; i <= rowLastIndex; i++)
+        int actualSize = 0;
+        for (int i = 0; i < n - 1; i++)
         {
-            jaggedArray[i] = new Paper[numberOfColumns];
-            for (int j = columnFirstIndex; j <= columnLastIndex; j++)
-            {
-                jaggedArray[i][j] = twoDimensionalArray[i, j];
-            }
+            papers[i] = GenerateArray(i + 1);
+            actualSize += papers[i].Length;
         }
-        return jaggedArray;
+
+        papers[n - 1] = GenerateArray(size - actualSize);
+
+        return papers;
     }
 
-    internal static Paper[,] GetMatrix(int rows, int columns)
+    internal static Paper[,] GenerateMatrix(int rows, int columns)
     {
-        Paper[,] papers2D = new Paper[rows, columns];
+        Paper[,] papers = new Paper[rows, columns];
 
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
-                papers2D[i, j] = new Paper();
+                papers[i, j] = new Paper();
             }
         }
 
-        return papers2D;
+        return papers;
     }
 
-    internal static Paper[] ToArray(Paper[,] twoDimensionalArray)
+    internal static Paper[] GenerateArray(int size)
     {
-        Paper[] papers = new Paper[twoDimensionalArray.Length];
-        for (int i = 0; i < twoDimensionalArray.GetLength(0); i++)
+        Paper[] papers = new Paper[size];
+
+        for (int i = 0; i < size; i++)
         {
-            for (int j = 0; j < twoDimensionalArray.GetLength(1); j++)
-            {
-                papers[i * twoDimensionalArray.GetLength(1) + j] = twoDimensionalArray[i, j];
-            }
+            papers[i] = new Paper();
         }
 
         return papers;
