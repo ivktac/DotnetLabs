@@ -35,18 +35,17 @@ class Program
 
         Console.WriteLine($"Last publication: {oracleResearch.LastPublication}");
 
-        Console.WriteLine("Enter nRows and nColumns (delimeter is space):");
-        // TODO: create chars of delimeter and Split
-        string[] input = Console.ReadLine()?.Split(' ') ?? new string[2] { "3", "2" };
+        Console.WriteLine("Enter nRows and nColumns (by delimeters):");
+
+        char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+
+        string[] input = Console.ReadLine()?.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries) ?? new string[2] { "3", "2" };
 
         int rows = int.Parse(input[0]);
         int columns = int.Parse(input[1]);
 
         Paper[,] papers = PaperExtension.GenerateMatrix(rows, columns);
         int timeElapsed;
-
-
-        // TODO: operation
 
         timeElapsed = GetTimeElapsed(() =>
         {
