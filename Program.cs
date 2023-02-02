@@ -4,112 +4,67 @@ class Program
 {
     static void Main(string[] args)
     {
-        ResearchTeam microsoftResearch = new ResearchTeam("C#", "Microsoft", 1, TimeFrame.Long);
+        var team1 = new Team { Organization = "Microsoft Dev Team", RegistrationNumber = 1 };
+        var team2 = new Team { Organization = "Microsoft Dev Team", RegistrationNumber = 1 };
 
-        Console.WriteLine(microsoftResearch.ToShortString());
+        Console.WriteLine($"ReferenceEquals: {ReferenceEquals(team1, team2)}");
+        Console.WriteLine($"team1 == team2: {team1 == team2}");
+        Console.WriteLine($"HashCode team1: {team1.GetHashCode()}, HashCode team2: {team2.GetHashCode()}");
 
-        Console.WriteLine($"Is research team working on C# for a year? {microsoftResearch[TimeFrame.Year]}");
-        Console.WriteLine($"Is research team working on C# for two years? {microsoftResearch[TimeFrame.TwoYears]}");
-        Console.WriteLine($"Is research team working on C# for long? {microsoftResearch[TimeFrame.Long]}");
-
-        ResearchTeam oracleResearch = new()
+        try
         {
-            Topic = "Java",
-            Organization = "Oracle",
-            RegistrationNumber = 2,
-            TimeFrame = TimeFrame.TwoYears,
+            Team team3 = new() { Organization = "Microsoft Dev Team", RegistrationNumber = 0 };
+        }
+        catch (ArgumentException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
+
+
+        var microsoftResearch = new ResearchTeam
+        {
+            Topic = "C# 9.0",
+            Organization = "Microsoft Research",
+            RegistrationNumber = 1,
+            TimeFrame = TimeFrame.Year,
+            Members = new List<Person>
+                {
+                    new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)),
+                    new Person("Mads", "Torgersen", new DateTime(1975, 1, 1)),
+                }
         };
+        microsoftResearch.AddPapers(new Paper("C# 9.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2020, 8, 4)));
 
-        Console.WriteLine(oracleResearch.ToString());
+        Console.WriteLine(microsoftResearch.ToString());
 
-        oracleResearch.AddPapers(
-            new Paper[]
-            {
-                new Paper("Java 7.0", new Person("John", "Doe", new DateTime(1990, 1, 1)), new DateTime(2022, 1, 1)),
-                new Paper("Java 6.0", new Person("Jane", "Doe", new DateTime(1990, 1, 1)), new DateTime(2021, 1, 1)),
-                new Paper("Java 5.0", new Person("John", "Doe", new DateTime(1990, 1, 1)), new DateTime(2020, 1, 1))
-            }
-        );
+        Console.WriteLine($"Microsoft Research's Team: {microsoftResearch.Team}");
 
-        Console.WriteLine(oracleResearch.ToString());
+        var microsoftResearchCopy = (ResearchTeam)microsoftResearch.DeepCopy();
 
-        Console.WriteLine($"Last publication: {oracleResearch.LastPublication}");
+        microsoftResearch.AddPapers(new Paper("C# 10.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2021, 8, 4)));
 
-        Console.WriteLine("Enter nRows and nColumns (by delimeters):");
+        Console.WriteLine($"Microsoft Research's Team:\n{microsoftResearch}");
+        Console.WriteLine($"Microsoft Research's Team Copy:\n{microsoftResearchCopy}");
 
-        char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
-
-        string[] input = Console.ReadLine()?.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries) ?? new string[2] { "3", "2" };
-
-        int rows = int.Parse(input[0]);
-        int columns = int.Parse(input[1]);
-
-        Paper[,] papers = PaperExtension.GenerateMatrix(rows, columns);
-        int timeElapsed;
-
-        timeElapsed = GetTimeElapsed(() =>
+        try
         {
-            DateTime maxDate = papers[0, 0].PublishDate;
-            for (int i = 0; i < rows; i++)
+            Console.WriteLine("Persons without publications:");
+            foreach (var person in microsoftResearch.GetPersonsWithNoPublications())
             {
-                for (int j = 0; j < columns; j++)
-                {
-                    if (papers[i, j].PublishDate > maxDate)
-                    {
-                        maxDate = papers[i, j].PublishDate;
-                    }
-                }
+                Console.WriteLine(person);
             }
-        });
 
-        Console.WriteLine($"Time elapsed of find max publish date in matrix with {rows} rows and {columns} columns: {timeElapsed} ms");
+            Console.WriteLine("Publications within last two years");
 
+            foreach (var paper in microsoftResearch.GetPapersWithinLastYears(2))
+            {
+                Console.WriteLine(paper);
+            }
 
-        Paper[] papersArray = PaperExtension.GenerateArray(rows * columns);
-
-        timeElapsed = GetTimeElapsed(() =>
+        }
+        catch (NotImplementedException ex)
         {
-            DateTime maxDate = papersArray[0].PublishDate;
-            for (int i = 0; i < papersArray.Length; i++)
-            {
-                if (papersArray[i].PublishDate > maxDate)
-                {
-                    maxDate = papersArray[i].PublishDate;
-                }
-            }
-        });
-
-
-        Console.WriteLine($"Time elapsed of one-dimensional array with {rows * columns} columns: {timeElapsed} ms");
-
-        Paper[][] papersJaggedArray = PaperExtension.GenerateJaggedArray(rows * columns);
-
-        timeElapsed = GetTimeElapsed(() =>
-        {
-            DateTime maxDate = papersJaggedArray[0][0].PublishDate;
-            for (int i = 0; i < papersJaggedArray.Length; i++)
-            {
-                for (int j = 0; j < papersJaggedArray[i].Length; j++)
-                {
-                    if (papersJaggedArray[i][j].PublishDate > maxDate)
-                    {
-                        maxDate = papersJaggedArray[i][j].PublishDate;
-                    }
-                }
-            }
-        });
-
-        Console.WriteLine($"Time elapsed of find max publish date in jagged array with size {rows * columns}: {timeElapsed} ms");
-    }
-
-    private static int GetTimeElapsed(Action action)
-    {
-        int startTime = Environment.TickCount;
-
-        action();
-
-        int endTime = Environment.TickCount;
-
-        return endTime - startTime;
+            Console.Error.WriteLine(ex.Message);
+        }
     }
 }

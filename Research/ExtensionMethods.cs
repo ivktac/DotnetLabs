@@ -77,7 +77,7 @@ internal static class PaperExtension
         Person? author = ReadPerson();
         DateTime publishDate = DateTime.Parse(input[2]);
 
-        if (author == null)
+        if (author is null)
         {
             return null;
         }

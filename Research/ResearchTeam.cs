@@ -1,60 +1,76 @@
+using System.Collections;
+
 namespace Research;
 
-class ResearchTeam
+class ResearchTeam : Team, INameAndCopy
 {
     private string _topic;
-    private string _organization;
-    private int _registrationNumber;
     private TimeFrame _timeFrame;
-    private Paper[] _publications;
+    private List<Person> _members;
+    private List<Paper> _publications;
 
     public ResearchTeam(string topic, string organization, int registrationNumber, TimeFrame timeFrame)
+        : base(organization, registrationNumber)
     {
         _topic = topic;
-        _organization = organization;
-        _registrationNumber = registrationNumber;
         _timeFrame = timeFrame;
-        _publications = new Paper[0];
+        _members = new List<Person>();
+        _publications = new List<Paper>();
     }
 
     public ResearchTeam() : this("No topic", "No organization", 0, TimeFrame.Year) { }
 
-
-    public string Organization
+    public sealed override object DeepCopy()
     {
-        get { return _organization; }
-        init { _organization = value; }
+        ResearchTeam team = new()
+        {
+            Topic = Topic,
+            Organization = Organization,
+            RegistrationNumber = RegistrationNumber,
+            TimeFrame = TimeFrame,
+            Members = new List<Person>(Members),
+            Publications = new List<Paper>(Publications)
+        };
+        return team;
     }
+
 
     public string Topic
     {
-        get { return _topic; }
-        init { _topic = value; }
-    }
-
-    public int RegistrationNumber
-    {
-        get { return _registrationNumber; }
-        init { _registrationNumber = value; }
+        get => _topic;
+        init => _topic = value;
     }
 
     public TimeFrame TimeFrame
     {
-        get { return _timeFrame; }
-        init { _timeFrame = value; }
+        get => _timeFrame;
+        init => _timeFrame = value;
     }
 
-    public Paper[] Publications
+    public List<Paper> Publications
     {
-        get { return _publications; }
-        init { _publications = value; }
+        get => _publications;
+        init => _publications = value;
     }
 
+    public List<Person> Members
+    {
+        get => _members;
+        init => _members = value;
+    }
+
+    //
+    // Summary:
+    //      Gets the last publication of the team.
+    // 
+    // Returns:
+    //      The last publication of the team.
+    //
     public Paper? LastPublication
     {
         get
         {
-            if (Publications.Length == 0)
+            if (Publications.Count == 0)
             {
                 return null;
             }
@@ -72,30 +88,33 @@ class ResearchTeam
         }
     }
 
+    public Team Team
+    {
+        get => new(Organization, RegistrationNumber);
+        init => (Organization, RegistrationNumber) = (value.Organization, value.RegistrationNumber);
+    }
+
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
     public void AddPapers(params Paper[]? papers)
     {
-        if (papers == null)
+        if (papers is null)
         {
             return;
         }
 
-        if (_publications == null)
+        foreach (Paper paper in papers)
         {
-            _publications = papers;
-            return;
+            if (paper is not null)
+            {
+                Publications.Add(paper);
+            }
         }
-
-        Paper[] newPublications = new Paper[_publications.Length + papers.Length];
-        _publications.CopyTo(newPublications, 0);
-        papers.CopyTo(newPublications, _publications.Length);
-        _publications = newPublications;
     }
 
     public sealed override string ToString()
     {
-        string result = $"Topic: {_topic}\nOrganization: {_organization}\nRegistration number: {_registrationNumber}\nTime frame: {_timeFrame}\nPublications:\n";
+        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {_timeFrame}\nPublications:\n"; ;
         System.Text.StringBuilder sb = new System.Text.StringBuilder(result);
         foreach (Paper publication in _publications)
         {
@@ -104,5 +123,14 @@ class ResearchTeam
         return sb.ToString();
     }
 
-    public string ToShortString() => $"Topic: {_topic}\nOrganization: {_organization}\nRegistration number: {_registrationNumber}\nTime frame: {_timeFrame}\n";
+    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
+
+    public IEnumerable<Person> GetPersonsWithNoPublications()
+    {
+        throw new NotImplementedException();
+    }
+    public IEnumerable<Paper> GetPapersWithinLastYears(int n)
+    {
+        throw new NotImplementedException();
+    }
 }
