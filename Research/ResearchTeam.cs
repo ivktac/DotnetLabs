@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Research;
 
-class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
+public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 {
     private string _topic;
     private TimeFrame _timeFrame;
@@ -94,6 +94,8 @@ class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
+    /// <summary>Adds a papers to the publications.</summary>
+    /// <param name="papers">The papers to add.</param>
     public void AddPapers(params Paper[]? papers)
     {
         if (papers is null)
@@ -125,7 +127,7 @@ class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     /// <summary>Gets the members of the team who have no publications.</summary>
     /// <returns>The members of the team who have no publications.</returns>
-    public IEnumerable<Person> GetPersonsWithNoPublications() => this.Where(member => Publications.Find(publication => publication.Author.Equals(member)) is null);
+    public IEnumerable<Person> GetPersonsWithNoPublications() => this.Where(member => Publications.Find(publication => publication.Author.Equals(member)) is null); // TODO: Do I need LINQ and performance is not important here?
 
     /// <summary>Gets the members of the team who have more than n publications. If n is not specified, returns the members of the team who have at least one publication.</summary>
     /// <param name="n">The number of publications.</param>
@@ -146,7 +148,7 @@ class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     /// </summary>
     /// <param name="n">The number of years.</param>
     /// <returns>The papers published within the last n years.</returns>
-    public IEnumerable<Paper> GetPapersWithinLastYears(int n) => Publications.Where(publication => publication.PublishDate.Year >= DateTime.Now.Year - n);
+    public IEnumerable<Paper> GetPapersWithinLastYears(int n) => Publications.Where(publication => publication.PublishDate.Year >= DateTime.Now.Year - n); // TODO: Do I need LINQ and performance is not important here?
 
     /// <summary>
     /// Gets the papers published in the last year.
@@ -162,32 +164,5 @@ class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
                 yield return publication;
             }
         }
-    }
-
-    public class ResearchTeamEnumerator : IEnumerator<Person>
-    {
-        private readonly ResearchTeam _researchTeam;
-
-        private int _index = -1;
-
-        public ResearchTeamEnumerator(ResearchTeam researchTeam) => _researchTeam = researchTeam;
-
-        public Person Current => _researchTeam.Members[_index];
-
-        object IEnumerator.Current => Current;
-
-        public void Dispose() { }
-
-        public bool MoveNext()
-        {
-            if (_index < _researchTeam.Members.Count - 1)
-            {
-                _index++;
-                return true;
-            }
-            return false;
-        }
-
-        public void Reset() => _index = -1;
     }
 }

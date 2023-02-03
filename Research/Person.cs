@@ -1,6 +1,6 @@
 namespace Research;
 
-class Person : INameAndCopy
+public class Person : INameAndCopy
 {
     private string _name;
     private string _surname;

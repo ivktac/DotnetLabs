@@ -1,6 +1,6 @@
 namespace Research;
 
-class Paper
+public class Paper
 {
     public string Title { get; set; }
     public Person Author { get; init; } = default!;

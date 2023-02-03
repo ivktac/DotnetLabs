@@ -1,6 +1,6 @@
 namespace Research;
 
-enum TimeFrame
+public enum TimeFrame
 {
     Year,
     TwoYears,
