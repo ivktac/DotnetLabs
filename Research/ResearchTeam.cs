@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Research;
 
-class ResearchTeam : Team, INameAndCopy
+class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 {
     private string _topic;
     private TimeFrame _timeFrame;
@@ -34,6 +34,9 @@ class ResearchTeam : Team, INameAndCopy
         return team;
     }
 
+    public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     public string Topic
     {
@@ -59,13 +62,8 @@ class ResearchTeam : Team, INameAndCopy
         init => _members = value;
     }
 
-    //
-    // Summary:
-    //      Gets the last publication of the team.
-    // 
-    // Returns:
-    //      The last publication of the team.
-    //
+    /// <summary>Gets the last publication.</summary>
+    /// <returns>The last publication.</returns>
     public Paper? LastPublication
     {
         get
@@ -125,12 +123,71 @@ class ResearchTeam : Team, INameAndCopy
 
     public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
 
-    public IEnumerable<Person> GetPersonsWithNoPublications()
+    /// <summary>Gets the members of the team who have no publications.</summary>
+    /// <returns>The members of the team who have no publications.</returns>
+    public IEnumerable<Person> GetPersonsWithNoPublications() => this.Where(member => Publications.Find(publication => publication.Author.Equals(member)) is null);
+
+    /// <summary>Gets the members of the team who have more than n publications. If n is not specified, returns the members of the team who have at least one publication.</summary>
+    /// <param name="n">The number of publications.</param>
+    /// <returns>The members of the team who have more than n publications.</returns>
+    public IEnumerable<Person> GetPersonWithPublications(int n = 0)
     {
-        throw new NotImplementedException();
+        foreach (var member in this)
+        {
+            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count > n)
+            {
+                yield return member;
+            }
+        }
     }
-    public IEnumerable<Paper> GetPapersWithinLastYears(int n)
+
+    /// <summary>
+    /// Gets the papers published within the last n years.
+    /// </summary>
+    /// <param name="n">The number of years.</param>
+    /// <returns>The papers published within the last n years.</returns>
+    public IEnumerable<Paper> GetPapersWithinLastYears(int n) => Publications.Where(publication => publication.PublishDate.Year >= DateTime.Now.Year - n);
+
+    /// <summary>
+    /// Gets the papers published in the last year.
+    /// </summary>
+    /// <returns>The papers published in the last year.</returns>
+    public IEnumerable<Paper> GetPapersInLastYear()
     {
-        throw new NotImplementedException();
+        // TODO: Do I really need this method?
+        foreach (var publication in Publications)
+        {
+            if (publication.PublishDate.Year >= DateTime.Now.Year - 1)
+            {
+                yield return publication;
+            }
+        }
+    }
+
+    public class ResearchTeamEnumerator : IEnumerator<Person>
+    {
+        private readonly ResearchTeam _researchTeam;
+
+        private int _index = -1;
+
+        public ResearchTeamEnumerator(ResearchTeam researchTeam) => _researchTeam = researchTeam;
+
+        public Person Current => _researchTeam.Members[_index];
+
+        object IEnumerator.Current => Current;
+
+        public void Dispose() { }
+
+        public bool MoveNext()
+        {
+            if (_index < _researchTeam.Members.Count - 1)
+            {
+                _index++;
+                return true;
+            }
+            return false;
+        }
+
+        public void Reset() => _index = -1;
     }
 }
