@@ -6,7 +6,6 @@ public class Person : INameAndCopy
     private string _surname;
     private DateTime _birthday;
 
-
     public Person(string name, string surname, DateTime birthday)
     {
         _name = name;

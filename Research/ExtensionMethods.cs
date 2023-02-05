@@ -4,9 +4,10 @@ internal static class PaperExtension
 {
     internal static Paper[][] GenerateJaggedArray(int size)
     {
+        // arithmetic progression: n*(n+1)/2 = size (n - number of rows)
         int n = (int)Math.Ceiling((Math.Sqrt(8 * size + 1) - 1) / 2);
-        Paper[][] papers = new Paper[n][];
 
+        Paper[][] papers = new Paper[n][];
         int actualSize = 0;
         for (int i = 0; i < n - 1; i++)
         {
