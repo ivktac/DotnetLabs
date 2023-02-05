@@ -1,6 +1,6 @@
 namespace Research;
 
-class ResearchTeam
+public class ResearchTeam
 {
     private string _topic;
     private string _organization;
@@ -22,32 +22,32 @@ class ResearchTeam
 
     public string Organization
     {
-        get { return _organization; }
-        init { _organization = value; }
+        get => _organization;
+        init => _organization = value;
     }
 
     public string Topic
     {
-        get { return _topic; }
-        init { _topic = value; }
+        get => _topic;
+        init => _topic = value;
     }
 
     public int RegistrationNumber
     {
-        get { return _registrationNumber; }
-        init { _registrationNumber = value; }
+        get => _registrationNumber;
+        init => _registrationNumber = value;
     }
 
     public TimeFrame TimeFrame
     {
-        get { return _timeFrame; }
-        init { _timeFrame = value; }
+        get => _timeFrame;
+        init => _timeFrame = value;
     }
 
     public Paper[] Publications
     {
-        get { return _publications; }
-        init { _publications = value; }
+        get => _publications;
+        init => _publications = value;
     }
 
     public Paper? LastPublication
