@@ -35,7 +35,14 @@ public class ResearchTeam
     public int RegistrationNumber
     {
         get => _registrationNumber;
-        init => _registrationNumber = value;
+        init
+        {
+            if (value < 0)
+            {
+                throw new ArgumentException("Registration number cannot be negative");
+            }
+            _registrationNumber = value;
+        }
     }
 
     public TimeFrame TimeFrame
@@ -47,7 +54,14 @@ public class ResearchTeam
     public Paper[] Publications
     {
         get => _publications;
-        init => _publications = value;
+        init
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("Publications cannot be null");
+            }
+            _publications = value;
+        }
     }
 
     public Paper? LastPublication
@@ -96,12 +110,14 @@ public class ResearchTeam
     public sealed override string ToString()
     {
         string result = $"Topic: {_topic}\nOrganization: {_organization}\nRegistration number: {_registrationNumber}\nTime frame: {_timeFrame}\nPublications:\n";
-        System.Text.StringBuilder sb = new System.Text.StringBuilder(result);
+        
+        var stringBuilder = new System.Text.StringBuilder(result);
         foreach (Paper publication in _publications)
         {
-            sb.AppendLine(publication.ToString());
+            stringBuilder.AppendLine(publication.ToString());
         }
-        return sb.ToString();
+        
+        return stringBuilder.ToString();
     }
 
     public string ToShortString() => $"Topic: {_topic}\nOrganization: {_organization}\nRegistration number: {_registrationNumber}\nTime frame: {_timeFrame}\n";
