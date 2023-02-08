@@ -20,23 +20,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     public ResearchTeam() : this("No topic", "No organization", 0, TimeFrame.Year) { }
 
-    public sealed override object DeepCopy()
-    {
-        ResearchTeam team = new()
-        {
-            Topic = Topic,
-            Organization = Organization,
-            RegistrationNumber = RegistrationNumber,
-            TimeFrame = TimeFrame,
-            Members = new List<Person>(Members),
-            Publications = new List<Paper>(Publications)
-        };
-        return team;
-    }
-
-    public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
-
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
     public string Topic
     {
@@ -53,7 +37,14 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     public List<Paper> Publications
     {
         get => _publications;
-        init => _publications = value;
+        init
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("Publications cannot be null");
+            }
+            _publications = value;
+        }
     }
 
     public List<Person> Members
@@ -92,8 +83,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
         init => (Organization, RegistrationNumber) = (value.Organization, value.RegistrationNumber);
     }
 
-    public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
-
     /// <summary>Adds a papers to the publications.</summary>
     /// <param name="papers">The papers to add.</param>
     public void AddPapers(params Paper[]? papers)
@@ -111,19 +100,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
             }
         }
     }
-
-    public sealed override string ToString()
-    {
-        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {_timeFrame}\nPublications:\n"; ;
-        System.Text.StringBuilder sb = new System.Text.StringBuilder(result);
-        foreach (Paper publication in _publications)
-        {
-            sb.AppendLine(publication.ToString());
-        }
-        return sb.ToString();
-    }
-
-    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
 
     /// <summary>Gets the members of the team who have no publications.</summary>
     /// <returns>The members of the team who have no publications.</returns>
@@ -165,4 +141,29 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
             }
         }
     }
+
+    public sealed override string ToString()
+    {
+        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {_timeFrame}\nPublications:\n"; ;
+
+        var stringBuilder = new System.Text.StringBuilder(result);
+        foreach (Paper publication in _publications)
+        {
+            stringBuilder.AppendLine(publication.ToString());
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
+
+    public sealed override object DeepCopy() => new ResearchTeam(Topic, Organization, RegistrationNumber, TimeFrame)
+    {
+        Members = new List<Person>(Members),
+        Publications = new List<Paper>(Publications)
+    };
+
+    public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

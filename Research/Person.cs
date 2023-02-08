@@ -6,14 +6,14 @@ public class Person : INameAndCopy
     private string _surname;
     private DateTime _birthday;
 
+    public Person() : this("John", "Doe", new DateTime(1990, 1, 1)) { }
+
     public Person(string name, string surname, DateTime birthday)
     {
         _name = name;
         _surname = surname;
         _birthday = birthday;
     }
-
-    public Person() : this("John", "Doe", new DateTime(1990, 1, 1)) { }
 
     string INameAndCopy.Name { get => _name; set => _name = value; }
 
