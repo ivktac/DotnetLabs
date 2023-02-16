@@ -80,7 +80,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     public Team Team
     {
         get => new(Organization, RegistrationNumber);
-        init => (Organization, RegistrationNumber) = (value.Organization, value.RegistrationNumber);
+        set => (Organization, RegistrationNumber) = (value.Organization, value.RegistrationNumber);
     }
 
     /// <summary>Adds a papers to the publications.</summary>
@@ -157,11 +157,23 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
 
-    public sealed override object DeepCopy() => new ResearchTeam(Topic, Organization, RegistrationNumber, TimeFrame)
+    public sealed override object DeepCopy()
     {
-        Members = new List<Person>(Members),
-        Publications = new List<Paper>(Publications)
-    };
+        var researchTeam = MemberwiseClone() as ResearchTeam;
+
+        if (researchTeam is null)
+        {
+            throw new NullReferenceException("ResearchTeam can not be null");
+        }
+
+        researchTeam._topic = Topic;
+        researchTeam._timeFrame = TimeFrame;
+        researchTeam._members = new List<Person>(Members);
+        researchTeam._publications = new List<Paper>(Publications);
+        researchTeam.Team = (Team)Team.DeepCopy();
+
+        return researchTeam;
+    }
 
     public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
 

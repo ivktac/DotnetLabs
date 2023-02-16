@@ -17,10 +17,6 @@ public class Person : INameAndCopy
 
     string INameAndCopy.Name { get => _name; set => _name = value; }
 
-    public virtual object DeepCopy()
-    {
-        return new Person(Name, Surname, BirthDay);
-    }
 
     public string Name => _name;
 
@@ -55,4 +51,19 @@ public class Person : INameAndCopy
     public override string ToString() => $"{_name} {_surname} ({_birthday.ToShortDateString()})";
 
     public virtual string ToShortString() => $"{_name} {_surname}";
+
+    public virtual object DeepCopy()
+    {
+        var person = MemberwiseClone() as Person;
+        
+        if (person is null)
+        {
+            throw new NullReferenceException("Person cannot be null");
+        }
+
+        person._name = Name;
+        person._surname = Surname;
+        person._birthday = BirthDay;
+        return person;
+    }
 }

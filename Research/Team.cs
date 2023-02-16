@@ -16,12 +16,12 @@ public class Team : INameAndCopy
 
     string INameAndCopy.Name { get => _organization; set => _organization = value; }
 
-    public string Organization { get => _organization; init => _organization = value; }
+    public string Organization { get => _organization; set => _organization = value; }
 
     public int RegistrationNumber
     {
         get => _registrationNumber;
-        init
+        set
         {
             if (value < 0)
             {
@@ -52,5 +52,17 @@ public class Team : INameAndCopy
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 
-    public virtual object DeepCopy() => new Team(Organization, RegistrationNumber);
+    public virtual object DeepCopy()
+    {
+        var team = MemberwiseClone() as Team;
+
+        if (team is null)
+        {
+            throw new NullReferenceException("Team cannot be null");
+        }
+
+        team._organization = Organization;
+        team._registrationNumber = RegistrationNumber;
+        return team;
+    }
 }
