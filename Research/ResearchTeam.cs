@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Research;
 
-public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
+public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable<ResearchTeam>
 {
     private string _topic;
     private TimeFrame _timeFrame;
@@ -178,4 +178,14 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public int CompareTo(ResearchTeam? other)
+    {
+        if (other is null)
+        {
+            return 1;
+        }
+
+        return Topic.CompareTo(other.Topic);
+    }
 }

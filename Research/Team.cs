@@ -1,6 +1,6 @@
 namespace Research;
 
-public class Team : INameAndCopy
+public class Team : INameAndCopy, IComparable
 {
     private string _organization;
     private int _registrationNumber;
@@ -64,5 +64,17 @@ public class Team : INameAndCopy
         team._organization = Organization;
         team._registrationNumber = RegistrationNumber;
         return team;
+    }
+
+    public int CompareTo(object? obj)
+    {
+        var team = obj as Team;
+
+        if (team is null)
+        {
+            throw new ArgumentException("Object is not a Team");
+        }
+
+        return RegistrationNumber.CompareTo(team.RegistrationNumber);
     }
 }
