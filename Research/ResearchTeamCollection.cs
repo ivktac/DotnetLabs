@@ -21,8 +21,8 @@ public class ResearchTeamCollection
 
     public virtual string? ToShortString()
     {
-        var stringBuidler = new System.Text.StringBuilder();
+        var stringBuilder = new System.Text.StringBuilder();
 
-        return stringBuidler.ToString();
+        return stringBuilder.ToString();
     }
 }
