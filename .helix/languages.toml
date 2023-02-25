@@ -1,0 +1,11 @@
+[[language]]
+name = "c-sharp"
+language-server = { command = "omnisharp", args = [ "--languageserver" ] }
+auto-format = true
+
+[language.config]
+"omnisharp.useModernNet" = true
+"csharp.inlayHints.parameters.enabled" = true
+"csharp.inlayHints.types.enabled" = true
+"csharp.inlayHints.types.forImplicitVariableTypes" = true
+"csharp.inlayHints.parameters.forLiteralParameters" = true

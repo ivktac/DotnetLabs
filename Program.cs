@@ -1,4 +1,4 @@
-﻿using Research;
+using Research;
 
 class Program
 {
