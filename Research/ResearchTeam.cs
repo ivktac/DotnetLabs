@@ -152,10 +152,16 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
             stringBuilder.AppendLine(publication.ToString());
         }
 
+        stringBuilder.AppendLine("\nMembers:\n");
+        foreach (Person member in _members)
+        {
+            stringBuilder.AppendLine(member.ToString());
+        }
+
         return stringBuilder.ToString();
     }
 
-    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
+    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\nPublications: {Publications.Count}\nMembers: {Members.Count}";
 
     public sealed override object DeepCopy()
     {
