@@ -4,75 +4,92 @@ class Program
 {
     static void Main(string[] args)
     {
-        var team1 = new Team { Organization = "Microsoft Dev Team", RegistrationNumber = 1 };
-        var team2 = new Team { Organization = "Microsoft Dev Team", RegistrationNumber = 1 };
+        var researchTeamCollection = new ResearchTeamCollection();
 
-        Console.WriteLine($"ReferenceEquals: {ReferenceEquals(team1, team2)}");
-        Console.WriteLine($"team1 == team2: {team1 == team2}");
-        Console.WriteLine($"HashCode team1: {team1.GetHashCode()}, HashCode team2: {team2.GetHashCode()}");
+        var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
 
-        try
+        var c_sharp = new ResearchTeam
         {
-            Team team3 = new() { Organization = "Microsoft Dev Team", RegistrationNumber = 0 };
-        }
-        catch (ArgumentException ex)
-        {
-            Console.Error.WriteLine(ex.Message);
-        }
-
-
-        var microsoftResearch = new ResearchTeam
-        {
-            Topic = "C# 9.0",
-            Organization = "Microsoft Research",
+            Topic = "C#",
+            Organization = "Microsoft",
             RegistrationNumber = 1,
-            TimeFrame = TimeFrame.Year,
+            TimeFrame = TimeFrame.Long,
             Members = new List<Person>
-                {
-                    new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)),
-                    new Person("Mads", "Torgersen", new DateTime(1975, 1, 1)),
-                    new Person("Bill", "Wagner", new DateTime(1970, 1, 1)),
-                }
+            {
+                anders,
+                new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
+                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
+            }
         };
-        microsoftResearch.AddPapers(new Paper("C# 9.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2020, 8, 4)));
 
-        Console.WriteLine(microsoftResearch.ToString());
+        c_sharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
 
-        Console.WriteLine($"Microsoft Research's Team: {microsoftResearch.Team}");
+        c_sharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
 
-        var microsoftResearchCopy = (ResearchTeam)microsoftResearch.DeepCopy();
+        c_sharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
 
-        microsoftResearch.AddPapers(new Paper("C# 10.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2021, 8, 4)));
-        microsoftResearch.AddPapers(new Paper("C# 11.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2023, 2, 2)));
 
-        Console.WriteLine($"Microsoft Research's Team:\n{microsoftResearch}");
-        Console.WriteLine($"Microsoft Research's Team Copy:\n{microsoftResearchCopy}");
-
-        Console.WriteLine("Persons without publications:");
-        foreach (var person in microsoftResearch.GetPersonsWithNoPublications())
+        var rust = new ResearchTeam
         {
-            Console.WriteLine(person);
+            Topic = "Rust",
+            Organization = "Mozilla",
+            RegistrationNumber = 2,
+            TimeFrame = TimeFrame.TwoYears,
+            Members = new List<Person>
+            {
+                new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)),
+                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
+            }
+        };
+
+        rust.AddPapers(new Paper("Rust 1.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2015, 12, 1)));
+
+        rust.AddPapers(new Paper("Rust 2.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2018, 12, 1)));
+
+        researchTeamCollection.AddResearchTeams(rust, c_sharp);
+
+        Console.WriteLine(researchTeamCollection.ToString());
+
+        Console.WriteLine("Research team sorted by registration number:");
+
+        researchTeamCollection.SortByRegistartionNumber();
+
+        Console.WriteLine(researchTeamCollection.ToString());
+
+        Console.WriteLine("Research team sorted by topic:");
+
+        researchTeamCollection.SortByTopic();
+
+        Console.WriteLine(researchTeamCollection.ToString());
+
+        Console.WriteLine("Research team sorted by publications count:");
+
+        researchTeamCollection.SortByPublicationsCount();
+
+        Console.WriteLine(researchTeamCollection.ToString());
+
+        var minimumRegistrationNumber = researchTeamCollection.MinimumRegistrationNumber;
+
+        Console.WriteLine($"Minimum registration number: {minimumRegistrationNumber}");
+
+        var filteredResearchTeamCollection = researchTeamCollection.ResearchTeamWithinTwoYears;
+
+        Console.WriteLine("Research team within two years:");
+
+        foreach (var researchTeam in filteredResearchTeamCollection)
+        {
+            Console.WriteLine(researchTeam.ToString());
         }
 
-        Console.WriteLine("Publications within last two years");
+        var groupedResearchTeamCollection = researchTeamCollection.NGroup(2);
 
-        foreach (var paper in microsoftResearch.GetPapersWithinLastYears(2))
+        Console.WriteLine("Grouped research team collection:");
+
+        foreach (var researchTeam in groupedResearchTeamCollection)
         {
-            Console.WriteLine(paper);
+            Console.WriteLine(researchTeam.ToString());
         }
 
-        Console.WriteLine("Persons with publications:");
-
-        foreach (var person in microsoftResearch.GetPersonWithPublications())
-        {
-            Console.WriteLine(person);
-        }
-
-        Console.WriteLine("Publications in last year:");
-
-        foreach (var paper in microsoftResearch.GetPapersInLastYear())
-        {
-            Console.WriteLine(paper);
-        }
+        var testCollections = new TestCollections();
     }
 }

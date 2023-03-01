@@ -56,7 +56,7 @@ public class ResearchTeamCollection
 
     public void SortByTopic() => _researchTeams.Sort();
 
-    public void SortByPublications() => _researchTeams.Sort(new ResearchPublicationsComparer());
+    public void SortByPublicationsCount() => _researchTeams.Sort(new ResearchPublicationsComparer());
 
     public List<ResearchTeam> NGroup(int value) => _researchTeams.GroupBy(x => x.Members.Count == value).Select(x => x.ToList()).First();
 }
