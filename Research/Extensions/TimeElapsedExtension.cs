@@ -1,3 +1,5 @@
+using System;
+
 namespace Research.Extensions;
 
 internal static class TimeElapsedExtension
