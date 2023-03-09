@@ -144,10 +144,10 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     public sealed override string ToString()
     {
-        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {_timeFrame}\nPublications:\n"; ;
+        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {TimeFrame}\nPublications:\n"; ;
 
         var stringBuilder = new System.Text.StringBuilder(result);
-        foreach (Paper publication in _publications)
+        foreach (Paper publication in Publications)
         {
             stringBuilder.AppendLine(publication.ToString());
         }
@@ -155,7 +155,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
         return stringBuilder.ToString();
     }
 
-    public string ToShortString() => $"Topic: {_topic}\nOrganization" + base.ToString() + $"Time frame: {_timeFrame}\n";
+    public string ToShortString() => $"Topic: {Topic}\nOrganization" + base.ToString() + $"Time frame: {TimeFrame}\n";
 
     public sealed override object DeepCopy()
     {

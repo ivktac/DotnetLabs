@@ -46,11 +46,11 @@ public class Person : INameAndCopy
         return Name == person.Name && Surname == person.Surname && BirthDay == person.BirthDay;
     }
 
-    public override int GetHashCode() => HashCode.Combine(_name, _surname, _birthday);
+    public override int GetHashCode() => HashCode.Combine(Name, Surname, BirthDay);
 
-    public override string ToString() => $"{_name} {_surname} ({_birthday.ToShortDateString()})";
+    public override string ToString() => $"{Name} {Surname} ({BirthDay.ToShortDateString()})";
 
-    public virtual string ToShortString() => $"{_name} {_surname}";
+    public virtual string ToShortString() => $"{Name} {Surname}";
 
     public virtual object DeepCopy()
     {

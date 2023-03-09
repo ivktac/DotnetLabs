@@ -61,8 +61,8 @@ public class Team : INameAndCopy
             throw new NullReferenceException("Team cannot be null");
         }
 
-        team._organization = Organization;
-        team._registrationNumber = RegistrationNumber;
+        team.Organization = Organization;
+        team.RegistrationNumber = RegistrationNumber;
         return team;
     }
 }
