@@ -51,20 +51,6 @@ public class Team : INameAndCopy, IComparable
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 
-    public virtual object DeepCopy()
-    {
-        var team = MemberwiseClone() as Team;
-
-        if (team is null)
-        {
-            throw new NullReferenceException("Team cannot be null");
-        }
-
-        team.Organization = Organization;
-        team.RegistrationNumber = RegistrationNumber;
-        return team;
-    }
-
     public int CompareTo(object? obj)
     {
         var team = obj as Team;
@@ -76,4 +62,5 @@ public class Team : INameAndCopy, IComparable
 
         return RegistrationNumber.CompareTo(team.RegistrationNumber);
     }
+    public virtual object DeepCopy() => MemberwiseClone();
 }
