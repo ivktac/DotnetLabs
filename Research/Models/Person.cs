@@ -9,7 +9,8 @@ public class Person : INameAndCopy
     private string _surname = default!;
     private DateTime _birthday = default!;
 
-    public Person() : this("John", "Doe", new DateTime(1990, 1, 1)) { }
+    public Person()
+        : this("John", "Doe", new DateTime(1990, 1, 1)) { }
 
     public Person(string name, string surname, DateTime birthday)
     {
@@ -18,11 +19,23 @@ public class Person : INameAndCopy
         BirthDay = birthday;
     }
 
-    public string Name { get => _name; set => _name = value; }
+    public string Name
+    {
+        get => _name;
+        set => _name = value;
+    }
 
-    public string Surname { get => _surname; set => _surname = value; }
+    public string Surname
+    {
+        get => _surname;
+        set => _surname = value;
+    }
 
-    public DateTime BirthDay { get => _birthday; private set => _birthday = value; }
+    public DateTime BirthDay
+    {
+        get => _birthday;
+        private set => _birthday = value;
+    }
 
     public int Age
     {
@@ -30,7 +43,11 @@ public class Person : INameAndCopy
         init => _birthday = DateTime.Now.AddYears(-value);
     }
 
-    string INameAndCopy.Name { get => Name; set => Name = value; }
+    string INameAndCopy.Name
+    {
+        get => Name;
+        set => Name = value;
+    }
 
     public static bool operator ==(Person p1, Person p2) => p1.Equals(p2);
 

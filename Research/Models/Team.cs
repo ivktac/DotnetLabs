@@ -9,7 +9,8 @@ public class Team : INameAndCopy, IComparable
     private string _organization = default!;
     private int _registrationNumber = default!;
 
-    public Team() : this("Default team", 0) { }
+    public Team()
+        : this("Default team", 0) { }
 
     public Team(string name, int registrationNumber)
     {
@@ -17,9 +18,17 @@ public class Team : INameAndCopy, IComparable
         RegistrationNumber = registrationNumber;
     }
 
-    public string Organization { get => _organization; set => _organization = value; }
+    public string Organization
+    {
+        get => _organization;
+        set => _organization = value;
+    }
 
-    string INameAndCopy.Name { get => Organization; set => Organization = value; }
+    string INameAndCopy.Name
+    {
+        get => Organization;
+        set => Organization = value;
+    }
 
     public int RegistrationNumber
     {
@@ -28,7 +37,7 @@ public class Team : INameAndCopy, IComparable
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("Registration number cannot be negative");
+                throw new ArgumentException("Registration number cannot be negative");
             }
 
             _registrationNumber = value;
@@ -66,5 +75,6 @@ public class Team : INameAndCopy, IComparable
 
         return RegistrationNumber.CompareTo(team.RegistrationNumber);
     }
+
     public virtual object DeepCopy() => MemberwiseClone();
 }

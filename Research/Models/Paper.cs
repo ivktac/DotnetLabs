@@ -6,7 +6,8 @@ public class Paper
 {
     private DateTime _publishDate = default!;
 
-    public Paper() : this("Untitled", new Person(), DateTime.Now) { }
+    public Paper()
+        : this("Untitled", new Person(), DateTime.Now) { }
 
     public Paper(string title, Person author, DateTime publishDate)
     {
@@ -33,5 +34,6 @@ public class Paper
         }
     }
 
-    public override string ToString() => $"{Title} by {Author.ToShortString()} ({PublishDate.ToShortDateString()})";
+    public override string ToString() =>
+        $"{Title} by {Author.ToShortString()} ({PublishDate.ToShortDateString()})";
 }

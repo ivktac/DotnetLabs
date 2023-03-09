@@ -13,9 +13,11 @@ public class TestCollections
     private Dictionary<Team, ResearchTeam> _researchTeams;
     private Dictionary<string, ResearchTeam> _researchTeamsByTopic;
 
-    public static ResearchTeam GetResearchTeam(int num) => new ResearchTeam($"Topic{num}", $"Org{num}", num, TimeFrame.TwoYears);
+    public static ResearchTeam GetResearchTeam(int num) =>
+        new ResearchTeam($"Topic{num}", $"Org{num}", num, TimeFrame.TwoYears);
 
-    public TestCollections() : this(0) { }
+    public TestCollections()
+        : this(0) { }
 
     public TestCollections(int count)
     {
@@ -34,9 +36,7 @@ public class TestCollections
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
-            if (!_teams.Contains(researchTeam.Team))
-            {
-            }
+            if (!_teams.Contains(researchTeam.Team)) { }
         });
     }
 
@@ -44,9 +44,7 @@ public class TestCollections
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
-            if (!_researchTeams.ContainsKey(researchTeam.Team))
-            {
-            }
+            if (!_researchTeams.ContainsKey(researchTeam.Team)) { }
         });
     }
 
@@ -54,9 +52,7 @@ public class TestCollections
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
-            if (!_researchTeamsByTopic.ContainsKey(researchTeam.Topic))
-            {
-            }
+            if (!_researchTeamsByTopic.ContainsKey(researchTeam.Topic)) { }
         });
     }
 
@@ -64,9 +60,7 @@ public class TestCollections
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
-            if (!_topics.Contains(researchTeam.Topic))
-            {
-            }
+            if (!_topics.Contains(researchTeam.Topic)) { }
         });
     }
 

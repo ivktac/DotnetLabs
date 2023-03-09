@@ -7,14 +7,23 @@ using Research.Enums;
 
 namespace Research.Models;
 
-public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable<ResearchTeam>
+public partial class ResearchTeam
+    : Team,
+        INameAndCopy,
+        IEnumerable<Person>,
+        IComparable<ResearchTeam>
 {
     private string _topic = default!;
     private TimeFrame _timeFrame = default!;
     private List<Person> _members = default!;
     private List<Paper> _publications = default!;
 
-    public ResearchTeam(string topic, string organization, int registrationNumber, TimeFrame timeFrame)
+    public ResearchTeam(
+        string topic,
+        string organization,
+        int registrationNumber,
+        TimeFrame timeFrame
+    )
         : base(organization, registrationNumber)
     {
         Topic = topic;
@@ -23,7 +32,8 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         Publications = new List<Paper>();
     }
 
-    public ResearchTeam() : this("No topic", "No organization", 0, TimeFrame.Year) { }
+    public ResearchTeam()
+        : this("No topic", "No organization", 0, TimeFrame.Year) { }
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
@@ -120,7 +130,11 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
 
     public sealed override string ToString()
     {
-        string result = $"Topic: {Topic}\nOrganization: " + base.ToString() + $"\nTime frame: {TimeFrame}\nPublications:\n"; ;
+        string result =
+            $"Topic: {Topic}\nOrganization: "
+            + base.ToString()
+            + $"\nTime frame: {TimeFrame}\nPublications:\n";
+        ;
 
         var stringBuilder = new System.Text.StringBuilder(result);
         foreach (Paper publication in Publications)
@@ -137,7 +151,8 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         return stringBuilder.ToString();
     }
 
-    public string ToShortString() => $"Topic: {Topic}\nOrganization" + base.ToString() + $"Time frame: {TimeFrame}\n";
+    public string ToShortString() =>
+        $"Topic: {Topic}\nOrganization" + base.ToString() + $"Time frame: {TimeFrame}\n";
 
     public sealed override object DeepCopy()
     {
@@ -166,7 +181,8 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
 
     /// <summary>Adds a items to the members or publications.</summary>
     /// <param name="items">The items to add.</param>
-    private void Add<T>(params T[]? items) where T : class
+    private void Add<T>(params T[]? items)
+        where T : class
     {
         if (items is null)
         {
