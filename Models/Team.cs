@@ -1,3 +1,5 @@
+using Research.Services;
+
 namespace Research.Models;
 
 public class Team : INameAndCopy
