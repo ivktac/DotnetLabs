@@ -78,39 +78,11 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     /// <summary>Adds a papers to the publications.</summary>
     /// <param name="papers">The papers to add.</param>
-    public void AddPapers(params Paper[]? papers)
-    {
-        if (papers is null)
-        {
-            return;
-        }
-
-        foreach (Paper paper in papers)
-        {
-            if (paper is not null)
-            {
-                Publications.Add(paper);
-            }
-        }
-    }
+    public void AddPapers(params Paper[]? papers) => Add(papers);
 
     /// <summary>Adds a members to the members.</summary>
     /// <param name="members">The members to add.</param>
-    public void AddMembers(params Person[]? members)
-    {
-        if (members is null)
-        {
-            return;
-        }
-
-        foreach (Person member in members)
-        {
-            if (member is not null)
-            {
-                Members.Add(member);
-            }
-        }
-    }
+    public void AddMembers(params Person[]? members) => Add(members);
 
     /// <summary>Gets the members of the team who have no publications.</summary>
     /// <returns>The members of the team who have no publications.</returns>
@@ -195,4 +167,27 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    /// <summary>Adds a items to the members or publications.</summary>
+    /// <param name="items">The items to add.</param>
+    private void Add<T>(params T[]? items) where T : class
+    {
+        if (items is null)
+        {
+            return;
+        }
+
+        foreach (T item in items)
+        {
+            switch (item)
+            {
+                case Person person:
+                    Members.Add(person);
+                    break;
+                case Paper paper:
+                    Publications.Add(paper);
+                    break;
+            }
+        }
+    }
 }
