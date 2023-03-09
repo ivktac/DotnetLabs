@@ -48,7 +48,7 @@ public class Team : INameAndCopy, IComparable
         return Organization == team.Organization && RegistrationNumber == team.RegistrationNumber;
     }
 
-    public override int GetHashCode() => (Organization, RegistrationNumber).GetHashCode();
+    public override int GetHashCode() => HashCode.Combine(_organization, _registrationNumber);
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 
@@ -61,8 +61,8 @@ public class Team : INameAndCopy, IComparable
             throw new NullReferenceException("Team cannot be null");
         }
 
-        team._organization = Organization;
-        team._registrationNumber = RegistrationNumber;
+        team.Organization = Organization;
+        team.RegistrationNumber = RegistrationNumber;
         return team;
     }
 
