@@ -150,12 +150,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 
     public sealed override object DeepCopy()
     {
-        var researchTeam = MemberwiseClone() as ResearchTeam;
-
-        if (researchTeam is null)
-        {
-            throw new NullReferenceException("ResearchTeam can not be null");
-        }
+        var researchTeam = (ResearchTeam)MemberwiseClone();
 
         researchTeam.Members = new List<Person>(Members);
         researchTeam.Publications = new List<Paper>(Publications);

@@ -52,17 +52,5 @@ public class Team : INameAndCopy
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 
-    public virtual object DeepCopy()
-    {
-        var team = MemberwiseClone() as Team;
-
-        if (team is null)
-        {
-            throw new NullReferenceException("Team cannot be null");
-        }
-
-        team.Organization = Organization;
-        team.RegistrationNumber = RegistrationNumber;
-        return team;
-    }
+    public virtual object DeepCopy() => MemberwiseClone();
 }
