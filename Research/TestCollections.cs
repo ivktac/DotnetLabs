@@ -29,12 +29,47 @@ public class TestCollections
         }
     }
 
-    public int GetTimeElapsedOfSearch(Action action)
+    public int GetTimeElapsedOfSearchInList(ResearchTeam researchTeam)
     {
-        var startTime = Environment.TickCount;
+        return ExtensionMethods.GetTimeElapsed(() =>
+        {
+            if (!_teams.Contains(researchTeam.Team))
+            {
+                _teams.Add(researchTeam.Team);
+            }
+        });
+    }
 
-        action();
+    public int GetTimeElapsedOfSearchInDictionary(ResearchTeam researchTeam)
+    {
+        return ExtensionMethods.GetTimeElapsed(() =>
+        {
+            if (!_researchTeams.ContainsKey(researchTeam.Team))
+            {
+                _researchTeams.Add(researchTeam.Team, researchTeam);
+            }
+        });
+    }
 
-        return Environment.TickCount - startTime;
+    public int GetTimeElapsedOfSearchInDictionaryByTopic(ResearchTeam researchTeam)
+    {
+        return ExtensionMethods.GetTimeElapsed(() =>
+        {
+            if (!_researchTeamsByTopic.ContainsKey(researchTeam.Topic))
+            {
+                _researchTeamsByTopic.Add(researchTeam.Topic, researchTeam);
+            }
+        });
+    }
+
+    public int GetTimeElapsedOfSearchInListTopic(ResearchTeam researchTeam)
+    {
+        return ExtensionMethods.GetTimeElapsed(() =>
+        {
+            if (!_topics.Contains(researchTeam.Topic))
+            {
+                _topics.Add(researchTeam.Topic);
+            }
+        });
     }
 }

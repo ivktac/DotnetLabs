@@ -1,95 +1,103 @@
 using Research;
 
-class Program
+var researchTeamCollection = new ResearchTeamCollection();
+
+var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
+
+var c_sharp = new ResearchTeam
 {
-    static void Main(string[] args)
-    {
-        var researchTeamCollection = new ResearchTeamCollection();
-
-        var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
-
-        var c_sharp = new ResearchTeam
-        {
-            Topic = "C#",
-            Organization = "Microsoft",
-            RegistrationNumber = 1,
-            TimeFrame = TimeFrame.Long,
-            Members = new List<Person>
+    Topic = "C#",
+    Organization = "Microsoft",
+    RegistrationNumber = 1,
+    TimeFrame = TimeFrame.Long,
+    Members = new List<Person>
             {
                 anders,
                 new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
                 new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
             }
-        };
+};
 
-        c_sharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
+c_sharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
 
-        c_sharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
+c_sharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
 
-        c_sharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
+c_sharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
 
 
-        var rust = new ResearchTeam
-        {
-            Topic = "Rust",
-            Organization = "Mozilla",
-            RegistrationNumber = 2,
-            TimeFrame = TimeFrame.TwoYears,
-            Members = new List<Person>
+var rust = new ResearchTeam
+{
+    Topic = "Rust",
+    Organization = "Mozilla",
+    RegistrationNumber = 2,
+    TimeFrame = TimeFrame.TwoYears,
+    Members = new List<Person>
             {
                 new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)),
                 new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
             }
-        };
+};
 
-        rust.AddPapers(new Paper("Rust 1.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2015, 12, 1)));
+rust.AddPapers(new Paper("Rust 1.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2015, 12, 1)));
 
-        rust.AddPapers(new Paper("Rust 2.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2018, 12, 1)));
+rust.AddPapers(new Paper("Rust 2.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2018, 12, 1)));
 
-        researchTeamCollection.AddResearchTeams(rust, c_sharp);
+researchTeamCollection.AddResearchTeams(rust, c_sharp);
 
-        Console.WriteLine(researchTeamCollection.ToString());
+Console.WriteLine(researchTeamCollection.ToString());
 
-        Console.WriteLine("Research team sorted by registration number:");
+Console.WriteLine("Research team sorted by registration number:");
 
-        researchTeamCollection.SortByRegistartionNumber();
+researchTeamCollection.SortByRegistartionNumber();
 
-        Console.WriteLine(researchTeamCollection.ToString());
+Console.WriteLine(researchTeamCollection.ToString());
 
-        Console.WriteLine("Research team sorted by topic:");
+Console.WriteLine("Research team sorted by topic:");
 
-        researchTeamCollection.SortByTopic();
+researchTeamCollection.SortByTopic();
 
-        Console.WriteLine(researchTeamCollection.ToString());
+Console.WriteLine(researchTeamCollection.ToString());
 
-        Console.WriteLine("Research team sorted by publications count:");
+Console.WriteLine("Research team sorted by publications count:");
 
-        researchTeamCollection.SortByPublicationsCount();
+researchTeamCollection.SortByPublicationsCount();
 
-        Console.WriteLine(researchTeamCollection.ToString());
+Console.WriteLine(researchTeamCollection.ToString());
 
-        var minimumRegistrationNumber = researchTeamCollection.MinimumRegistrationNumber;
+var minimumRegistrationNumber = researchTeamCollection.MinimumRegistrationNumber;
 
-        Console.WriteLine($"Minimum registration number: {minimumRegistrationNumber}");
+Console.WriteLine($"Minimum registration number: {minimumRegistrationNumber}");
 
-        var filteredResearchTeamCollection = researchTeamCollection.ResearchTeamWithinTwoYears;
+var filteredResearchTeamCollection = researchTeamCollection.ResearchTeamWithinTwoYears;
 
-        Console.WriteLine("Research team within two years:");
+Console.WriteLine("Research team within two years:");
 
-        foreach (var researchTeam in filteredResearchTeamCollection)
-        {
-            Console.WriteLine(researchTeam.ToString());
-        }
-
-        var groupedResearchTeamCollection = researchTeamCollection.NGroup(2);
-
-        Console.WriteLine("Grouped research team collection:");
-
-        foreach (var researchTeam in groupedResearchTeamCollection)
-        {
-            Console.WriteLine(researchTeam.ToString());
-        }
-
-        var testCollections = new TestCollections();
-    }
+foreach (var filteredReserchTeam in filteredResearchTeamCollection)
+{
+    Console.WriteLine(filteredReserchTeam.ToString());
 }
+
+var groupedResearchTeamCollection = researchTeamCollection.NGroup(2);
+
+Console.WriteLine("Grouped research team collection:");
+
+foreach (var groupedResearchTeam in groupedResearchTeamCollection)
+{
+    Console.WriteLine(groupedResearchTeam.ToString());
+}
+
+const int COUNT = 100_000;
+
+var testCollections = new TestCollections(COUNT);
+
+var researchTeam = TestCollections.GetResearchTeam(COUNT);
+
+var timeElapsedOfSearchInList = testCollections.GetTimeElapsedOfSearchInList(researchTeam);
+var timeElapsedOfSearchInListTopic = testCollections.GetTimeElapsedOfSearchInListTopic(researchTeam);
+var timeElapsedOfSearchInDictionary = testCollections.GetTimeElapsedOfSearchInDictionary(researchTeam);
+var timeElapsedOfSearchInDictionaryByTopic = testCollections.GetTimeElapsedOfSearchInDictionaryByTopic(researchTeam);
+
+Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
+Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
+Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
+Console.WriteLine($"Time elapsed of search in dictionary by topic: {timeElapsedOfSearchInDictionaryByTopic}ms");

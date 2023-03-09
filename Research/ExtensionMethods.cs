@@ -1,7 +1,16 @@
 namespace Research;
 
-internal static class PaperExtension
+internal static class ExtensionMethods
 {
+    internal static int GetTimeElapsed(this Action action)
+    {
+        var startTime = Environment.TickCount;
+
+        action();
+
+        return Environment.TickCount - startTime;
+    }
+
     internal static Paper[][] GenerateJaggedArray(int size)
     {
         // arithmetic progression: n*(n+1)/2 = size (n - number of rows)
