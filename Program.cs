@@ -42,6 +42,8 @@ class Program
 
         var microsoftResearchCopy = (ResearchTeam)microsoftResearch.DeepCopy();
 
+        Console.WriteLine($"ReferenceEquals for deep copy object {ReferenceEquals(microsoftResearch, microsoftResearchCopy)}");
+
         microsoftResearch.AddPapers(new Paper("C# 10.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2021, 8, 4)));
         microsoftResearch.AddPapers(new Paper("C# 11.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2023, 2, 2)));
 
