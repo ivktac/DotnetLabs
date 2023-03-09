@@ -1,4 +1,8 @@
-namespace Research;
+using Research.Enums;
+using Research.Models;
+using Research.Services;
+
+namespace Research.Collections;
 
 public class ResearchTeamCollection
 {

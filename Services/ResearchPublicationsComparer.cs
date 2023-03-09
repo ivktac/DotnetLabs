@@ -1,4 +1,6 @@
-namespace Research;
+using Research.Models;
+
+namespace Research.Services;
 
 public class ResearchPublicationsComparer : IComparer<ResearchTeam>
 {

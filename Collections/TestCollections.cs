@@ -1,4 +1,8 @@
-namespace Research;
+using Research.Enums;
+using Research.Models;
+using Research.Extensions;
+
+namespace Research.Collections;
 
 public class TestCollections
 {
@@ -26,7 +30,7 @@ public class TestCollections
 
     public int GetTimeElapsedOfSearchInList(ResearchTeam researchTeam)
     {
-        return ExtensionMethods.GetTimeElapsed(() =>
+        return TimeElapsedExtension.GetTimeElapsed(() =>
         {
             if (!_teams.Contains(researchTeam.Team))
             {
@@ -36,7 +40,7 @@ public class TestCollections
 
     public int GetTimeElapsedOfSearchInDictionary(ResearchTeam researchTeam)
     {
-        return ExtensionMethods.GetTimeElapsed(() =>
+        return TimeElapsedExtension.GetTimeElapsed(() =>
         {
             if (!_researchTeams.ContainsKey(researchTeam.Team))
             {
@@ -46,7 +50,7 @@ public class TestCollections
 
     public int GetTimeElapsedOfSearchInDictionaryByTopic(ResearchTeam researchTeam)
     {
-        return ExtensionMethods.GetTimeElapsed(() =>
+        return TimeElapsedExtension.GetTimeElapsed(() =>
         {
             if (!_researchTeamsByTopic.ContainsKey(researchTeam.Topic))
             {
@@ -56,7 +60,7 @@ public class TestCollections
 
     public int GetTimeElapsedOfSearchInListTopic(ResearchTeam researchTeam)
     {
-        return ExtensionMethods.GetTimeElapsed(() =>
+        return TimeElapsedExtension.GetTimeElapsed(() =>
         {
             if (!_topics.Contains(researchTeam.Topic))
             {
