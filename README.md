@@ -1,28 +1,30 @@
-# Лабораторна робота № 1
+## TODO
 
-## Результати виконання
+- [x] Create interface `INameAndCopy` with property `Name` and method `object DeepCopy()`
+- [x] Create new class `Team` and `ResearchTeam` that implement `Team` and `INameAndCopy` respectively
+- [x] Update class `Person`, `Paper` that implement `INameAndCopy`
 
-- Створити один об’єкт типу ResearchTeam, перетворити дані в текстовий вигляд за допомогою методу `ToShortString()` та вивести дані
+### Class `Person`
 
-![task1](./.github/images/lab1/task1.png)
+- [x] Override method `DeepCopy()` to return new instance of `Person` with same properties
 
-- вивести значення індексатора для значень індекса `TimeFrame.Year`, `TimeFrame.TwoYears`, `TimeFrame.Long`
+### Class `Paper`
 
-![task2](./.github/images/lab1/task2.png)
+- [x] Override method `bool Equals(object obj)` to compare two papers by `Title` and `Author`
+- [x] Add operator `==` and `!=` to compare two papers by `Title` and `Author`
+- [x] Override method `int GetHashCode()` to return hash code of `Title` and `Author`
+- [x] Override method `DeepCopy()` to return new instance of `Paper` with same properties
 
-- присвоїти значення в типі ResearchTeam властивостям, перетворити дані в текстовий вигляд за допомогою методу `ToString()`
+### Class `Team`
 
-![task3](./.github/images/lab1/task3.png)
+- [x] private field `string` for name of team
+- [x] private field `int` for registration number of team
+- [x] constructor with parameters `string` and `int`
+- [x] constructor without parameters
+- [x] property `string Name` for name of team
+- [x] property `int RegistrationNumber` for registration number of team that should throw exception if value is less than 0
+- [x] Override method `DeepCopy()` to return new instance of `Team` with same properties
+- [x] Implement interface `INameAndCopy`
+- [x] Override method `string ToString()` to return string with name of team and registration number of team
+- [x] Override method `bool Equals(object obj)` to compare two teams by `Name` and `RegistrationNumber`
 
-- за допомогою методу `AddPapers(params Paper[])` добавити лементи в список публікацій та вивести дані об'єкту `ResearchTeam`
-
-![task4](./.github/images/lab1/task4.png)
-
-- вивести значення властивості, яка повертає посилання на публікацію, яка вийшла останньою
-
-![task5](./.github/images/lab1/task5.png)
-
-- порівняти час виконання операцій з елементами одновимірного, двовимірного прямокутного, та двовимірних зубчастих масивів з однаковим числом елементів типу `Paper`
-
-![task6](./.github/images/lab1/task6_1.png)
-![task6](./.github/images/lab1/task6_2.png)
