@@ -2,33 +2,32 @@ namespace Research;
 
 public class Person : INameAndCopy
 {
-    private string _name;
-    private string _surname;
-    private DateTime _birthday;
+    private string _name = default!;
+    private string _surname = default!;
+    private DateTime _birthday = default!;
 
     public Person() : this("John", "Doe", new DateTime(1990, 1, 1)) { }
 
     public Person(string name, string surname, DateTime birthday)
     {
-        _name = name;
-        _surname = surname;
-        _birthday = birthday;
+        Name = name;
+        Surname = surname;
+        BirthDay = birthday;
     }
 
-    string INameAndCopy.Name { get => _name; set => _name = value; }
+    public string Name { get => _name; set => _name = value; }
 
+    public string Surname { get => _surname; set => _surname = value; }
 
-    public string Name => _name;
-
-    public string Surname => _surname;
-
-    public DateTime BirthDay => _birthday;
+    public DateTime BirthDay { get => _birthday; private set => _birthday = value; }
 
     public int Age
     {
         get => DateTime.Now.Year - _birthday.Year;
         init => _birthday = DateTime.Now.AddYears(-value);
     }
+
+    string INameAndCopy.Name { get => Name; set => Name = value; }
 
     public static bool operator ==(Person p1, Person p2) => p1.Equals(p2);
 
@@ -61,9 +60,10 @@ public class Person : INameAndCopy
             throw new NullReferenceException("Person cannot be null");
         }
 
-        person._name = Name;
-        person._surname = Surname;
-        person._birthday = BirthDay;
+        person.Name = Name;
+        person.Surname = Surname;
+        person.BirthDay = BirthDay;
+        
         return person;
     }
 }

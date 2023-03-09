@@ -2,7 +2,6 @@ namespace Research;
 
 public class TestCollections
 {
-    private int _count;
     private List<Team> _teams;
     private List<string> _topics;
     private Dictionary<Team, ResearchTeam> _researchTeams;
@@ -14,14 +13,14 @@ public class TestCollections
 
     public TestCollections(int count)
     {
-        _count = count;
+        Count = count;
         _teams = new List<Team>(count);
         _topics = new List<string>(count);
         _researchTeams = new Dictionary<Team, ResearchTeam>(count);
         _researchTeamsByTopic = new Dictionary<string, ResearchTeam>(count);
     }
 
-    public int Count => _count;
+    public int Count { get; private init; }
 
     public ResearchTeam this[int index] => GetResearchTeam(index);
 

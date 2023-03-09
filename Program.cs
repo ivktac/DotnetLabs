@@ -10,13 +10,9 @@ var c_sharp = new ResearchTeam
     Organization = "Microsoft",
     RegistrationNumber = 1,
     TimeFrame = TimeFrame.Long,
-    Members = new List<Person>
-            {
-                anders,
-                new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
-                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
-            }
 };
+
+c_sharp.AddMembers(anders, new Person("Bill", "Gates", new DateTime(1955, 10, 28)), new Person("Steve", "Jobs", new DateTime(1955, 2, 24)));
 
 c_sharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
 
@@ -31,12 +27,9 @@ var rust = new ResearchTeam
     Organization = "Mozilla",
     RegistrationNumber = 2,
     TimeFrame = TimeFrame.TwoYears,
-    Members = new List<Person>
-            {
-                new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)),
-                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
-            }
 };
+
+rust.AddMembers(new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new Person("Steve", "Jobs", new DateTime(1955, 2, 24)));
 
 rust.AddPapers(new Paper("Rust 1.0", new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)), new DateTime(2015, 12, 1)));
 
