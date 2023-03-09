@@ -1,4 +1,4 @@
-namespace Research;
+namespace Research.Enums;
 
 public enum TimeFrame
 {

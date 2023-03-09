@@ -1,6 +1,8 @@
 using System.Collections;
+using Research.Services;
+using Research.Enums;
 
-namespace Research;
+namespace Research.Models;
 
 public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 {

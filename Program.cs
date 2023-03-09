@@ -1,4 +1,5 @@
-﻿using Research;
+﻿using Research.Enums;
+using Research.Models;
 
 class Program
 {
