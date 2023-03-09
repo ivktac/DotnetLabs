@@ -46,7 +46,7 @@ public class Person : INameAndCopy
         return Name == person.Name && Surname == person.Surname && BirthDay == person.BirthDay;
     }
 
-    public override int GetHashCode() => (Name, Surname, BirthDay).GetHashCode();
+    public override int GetHashCode() => HashCode.Combine(_name, _surname, _birthday);
 
     public override string ToString() => $"{_name} {_surname} ({_birthday.ToShortDateString()})";
 
@@ -55,7 +55,7 @@ public class Person : INameAndCopy
     public virtual object DeepCopy()
     {
         var person = MemberwiseClone() as Person;
-        
+
         if (person is null)
         {
             throw new NullReferenceException("Person cannot be null");

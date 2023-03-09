@@ -48,7 +48,7 @@ public class Team : INameAndCopy
         return Organization == team.Organization && RegistrationNumber == team.RegistrationNumber;
     }
 
-    public override int GetHashCode() => (Organization, RegistrationNumber).GetHashCode();
+    public override int GetHashCode() => HashCode.Combine(_organization, _registrationNumber);
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 
