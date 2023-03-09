@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Research.Models;
 
 namespace Research.Services;

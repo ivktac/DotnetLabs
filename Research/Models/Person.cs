@@ -1,4 +1,3 @@
-using System;
 using Research.Services;
 
 namespace Research.Models;
