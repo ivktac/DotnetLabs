@@ -4,18 +4,18 @@ namespace Research;
 
 public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 {
-    private string _topic;
-    private TimeFrame _timeFrame;
-    private List<Person> _members;
-    private List<Paper> _publications;
+    private string _topic = default!;
+    private TimeFrame _timeFrame = default!;
+    private List<Person> _members = default!;
+    private List<Paper> _publications = default!;
 
     public ResearchTeam(string topic, string organization, int registrationNumber, TimeFrame timeFrame)
         : base(organization, registrationNumber)
     {
-        _topic = topic;
-        _timeFrame = timeFrame;
-        _members = new List<Person>();
-        _publications = new List<Paper>();
+        Topic = topic;
+        TimeFrame = timeFrame;
+        Members = new List<Person>();
+        Publications = new List<Paper>();
     }
 
     public ResearchTeam() : this("No topic", "No organization", 0, TimeFrame.Year) { }
@@ -37,20 +37,13 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     public List<Paper> Publications
     {
         get => _publications;
-        init
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException("Publications cannot be null");
-            }
-            _publications = value;
-        }
+        private set => _publications = value;
     }
 
     public List<Person> Members
     {
         get => _members;
-        init => _members = value;
+        private set => _members = value;
     }
 
     /// <summary>Gets the last publication.</summary>
@@ -101,9 +94,36 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
         }
     }
 
+    /// <summary>Adds a members to the members.</summary>
+    /// <param name="members">The members to add.</param>
+    public void AddMembers(params Person[]? members)
+    {
+        if (members is null)
+        {
+            return;
+        }
+
+        foreach (Person member in members)
+        {
+            if (member is not null)
+            {
+                Members.Add(member);
+            }
+        }
+    }
+
     /// <summary>Gets the members of the team who have no publications.</summary>
     /// <returns>The members of the team who have no publications.</returns>
-    public IEnumerable<Person> GetPersonsWithNoPublications() => this.Where(member => Publications.Find(publication => publication.Author.Equals(member)) is null); // TODO: Do I need LINQ and performance is not important here?
+    public IEnumerable<Person> GetPersonsWithNoPublications()
+    {
+        foreach (var member in this)
+        {
+            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count == 0)
+            {
+                yield return member;
+            }
+        }
+    }
 
     /// <summary>Gets the members of the team who have more than n publications. If n is not specified, returns the members of the team who have at least one publication.</summary>
     /// <param name="n">The number of publications.</param>
@@ -124,27 +144,26 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     /// </summary>
     /// <param name="n">The number of years.</param>
     /// <returns>The papers published within the last n years.</returns>
-    public IEnumerable<Paper> GetPapersWithinLastYears(int n) => Publications.Where(publication => publication.PublishDate.Year >= DateTime.Now.Year - n); // TODO: Do I need LINQ and performance is not important here?
-
-    /// <summary>
-    /// Gets the papers published in the last year.
-    /// </summary>
-    /// <returns>The papers published in the last year.</returns>
-    public IEnumerable<Paper> GetPapersInLastYear()
+    public IEnumerable<Paper> GetPapersWithinLastYears(int n)
     {
-        // TODO: Do I really need this method?
         foreach (var publication in Publications)
         {
-            if (publication.PublishDate.Year >= DateTime.Now.Year - 1)
+            if (publication.PublishDate.Year >= DateTime.Now.Year - n)
             {
                 yield return publication;
             }
         }
     }
 
+    /// <summary>
+    /// Gets the papers published in the last year.
+    /// </summary>
+    /// <returns>The papers published in the last year.</returns>
+    public IEnumerable<Paper> GetPapersInLastYear() => GetPapersWithinLastYears(1);
+
     public sealed override string ToString()
     {
-        string result = $"Topic: {_topic}\nOrganization: " + base.ToString() + $"\nTime frame: {TimeFrame}\nPublications:\n"; ;
+        string result = $"Topic: {Topic}\nOrganization: " + base.ToString() + $"\nTime frame: {TimeFrame}\nPublications:\n"; ;
 
         var stringBuilder = new System.Text.StringBuilder(result);
         foreach (Paper publication in Publications)
@@ -166,10 +185,8 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
             throw new NullReferenceException("ResearchTeam can not be null");
         }
 
-        researchTeam._topic = Topic;
-        researchTeam._timeFrame = TimeFrame;
-        researchTeam._members = new List<Person>(Members);
-        researchTeam._publications = new List<Paper>(Publications);
+        researchTeam.Members = new List<Person>(Members);
+        researchTeam.Publications = new List<Paper>(Publications);
         researchTeam.Team = (Team)Team.DeepCopy();
 
         return researchTeam;

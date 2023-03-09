@@ -2,19 +2,19 @@ namespace Research;
 
 public class Team : INameAndCopy
 {
-    private string _organization;
-    private int _registrationNumber;
+    private string _organization = default!;
+    private int _registrationNumber = default!;
 
 
     public Team() : this("Default team", 0) { }
 
     public Team(string name, int registrationNumber)
     {
-        _organization = name;
-        _registrationNumber = registrationNumber;
+        Organization = name;
+        RegistrationNumber = registrationNumber;
     }
 
-    string INameAndCopy.Name { get => _organization; set => _organization = value; }
+    string INameAndCopy.Name { get => Organization; set => Organization = value; }
 
     public string Organization { get => _organization; set => _organization = value; }
 
@@ -34,7 +34,7 @@ public class Team : INameAndCopy
 
     public static bool operator ==(Team t1, Team t2) => t1.Equals(t2);
 
-    public static bool operator !=(Team t1, Team t2) => !t1.Equals(t2);
+    public static bool operator !=(Team t1, Team t2) => !(t1 == t2);
 
     public override bool Equals(object? obj)
     {
@@ -48,7 +48,7 @@ public class Team : INameAndCopy
         return Organization == team.Organization && RegistrationNumber == team.RegistrationNumber;
     }
 
-    public override int GetHashCode() => HashCode.Combine(_organization, _registrationNumber);
+    public override int GetHashCode() => HashCode.Combine(Organization, RegistrationNumber);
 
     public override string ToString() => $"{Organization} ({RegistrationNumber})";
 

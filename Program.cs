@@ -27,13 +27,10 @@ class Program
             Organization = "Microsoft Research",
             RegistrationNumber = 1,
             TimeFrame = TimeFrame.Year,
-            Members = new List<Person>
-                {
-                    new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)),
-                    new Person("Mads", "Torgersen", new DateTime(1975, 1, 1)),
-                    new Person("Bill", "Wagner", new DateTime(1970, 1, 1)),
-                }
         };
+
+        microsoftResearch.AddMembers(new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new Person("Mads", "Torgersen", new DateTime(1975, 1, 1)), new Person("Bill", "Wagner", new DateTime(1970, 1, 1)));
+
         microsoftResearch.AddPapers(new Paper("C# 9.0", new Person("Anders", "Hejlsberg", new DateTime(1960, 12, 2)), new DateTime(2020, 8, 4)));
 
         Console.WriteLine(microsoftResearch.ToString());
