@@ -1,7 +1,8 @@
 [[language]]
 name = "c-sharp"
 language-server = { command = "omnisharp", args = [ "--languageserver" ] }
-auto-format = true
+formatter = { command = "dotnet", args = ["csharpier", "--"] }
+auto-format = false
 
 [language.config]
 "omnisharp.useModernNet" = true
