@@ -14,9 +14,9 @@ public class Team : INameAndCopy, IComparable
         _registrationNumber = registrationNumber;
     }
 
-    string INameAndCopy.Name { get => _organization; set => _organization = value; }
-
     public string Organization { get => _organization; set => _organization = value; }
+
+    string INameAndCopy.Name { get => Organization; set => Organization = value; }
 
     public int RegistrationNumber
     {

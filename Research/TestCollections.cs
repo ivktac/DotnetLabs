@@ -2,6 +2,7 @@ namespace Research;
 
 public class TestCollections
 {
+    private int _count;
     private List<Team> _teams;
     private List<string> _topics;
     private Dictionary<Team, ResearchTeam> _researchTeams;
@@ -9,25 +10,20 @@ public class TestCollections
 
     public static ResearchTeam GetResearchTeam(int num) => new ResearchTeam($"Topic{num}", $"Org{num}", num, TimeFrame.TwoYears);
 
-    public TestCollections()
+    public TestCollections() : this(0) { }
+
+    public TestCollections(int count)
     {
-        _teams = new List<Team>();
-        _topics = new List<string>();
-        _researchTeams = new Dictionary<Team, ResearchTeam>();
-        _researchTeamsByTopic = new Dictionary<string, ResearchTeam>();
+        _count = count;
+        _teams = new List<Team>(count);
+        _topics = new List<string>(count);
+        _researchTeams = new Dictionary<Team, ResearchTeam>(count);
+        _researchTeamsByTopic = new Dictionary<string, ResearchTeam>(count);
     }
 
-    public TestCollections(int count) : this()
-    {
-        for (var i = 0; i < count; i++)
-        {
-            var researchTeam = GetResearchTeam(i);
-            _teams.Add(researchTeam.Team);
-            _topics.Add(researchTeam.Topic);
-            _researchTeams.Add(researchTeam.Team, researchTeam);
-            _researchTeamsByTopic.Add(researchTeam.Topic, researchTeam);
-        }
-    }
+    public int Count => _count;
+
+    public ResearchTeam this[int index] => GetResearchTeam(index);
 
     public int GetTimeElapsedOfSearchInList(ResearchTeam researchTeam)
     {
@@ -35,7 +31,6 @@ public class TestCollections
         {
             if (!_teams.Contains(researchTeam.Team))
             {
-                _teams.Add(researchTeam.Team);
             }
         });
     }
@@ -46,7 +41,6 @@ public class TestCollections
         {
             if (!_researchTeams.ContainsKey(researchTeam.Team))
             {
-                _researchTeams.Add(researchTeam.Team, researchTeam);
             }
         });
     }
@@ -57,7 +51,6 @@ public class TestCollections
         {
             if (!_researchTeamsByTopic.ContainsKey(researchTeam.Topic))
             {
-                _researchTeamsByTopic.Add(researchTeam.Topic, researchTeam);
             }
         });
     }
@@ -68,8 +61,20 @@ public class TestCollections
         {
             if (!_topics.Contains(researchTeam.Topic))
             {
-                _topics.Add(researchTeam.Topic);
             }
         });
+    }
+
+    public void InitializeDefaultValues()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var researchTeam = GetResearchTeam(i);
+
+            _teams.Add(researchTeam.Team);
+            _topics.Add(researchTeam.Topic);
+            _researchTeams.Add(researchTeam.Team, researchTeam);
+            _researchTeamsByTopic.Add(researchTeam.Topic, researchTeam);
+        }
     }
 }

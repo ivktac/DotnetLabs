@@ -86,23 +86,11 @@ foreach (var groupedResearchTeam in groupedResearchTeamCollection)
     Console.WriteLine(groupedResearchTeam.ToString());
 }
 
-const int COUNT = 100_000;
+var testCollections = new TestCollections(100_000);
 
-var testCollections = new TestCollections(COUNT);
+testCollections.InitializeDefaultValues();
 
-var researchTeam = new ResearchTeam
-{
-    Topic = "C#",
-    Organization = "Microsoft",
-    RegistrationNumber = 1,
-    TimeFrame = TimeFrame.Long,
-    Members = new List<Person>
-            {
-                anders,
-                new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
-                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
-            }
-};
+var researchTeam = testCollections[testCollections.Count - 1];
 
 var timeElapsedOfSearchInList = testCollections.GetTimeElapsedOfSearchInList(researchTeam);
 var timeElapsedOfSearchInListTopic = testCollections.GetTimeElapsedOfSearchInListTopic(researchTeam);
