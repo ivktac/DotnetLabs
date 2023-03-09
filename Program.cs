@@ -90,13 +90,26 @@ const int COUNT = 100_000;
 
 var testCollections = new TestCollections(COUNT);
 
-var researchTeam = TestCollections.GetResearchTeam(COUNT);
+var researchTeam = new ResearchTeam
+{
+    Topic = "C#",
+    Organization = "Microsoft",
+    RegistrationNumber = 1,
+    TimeFrame = TimeFrame.Long,
+    Members = new List<Person>
+            {
+                anders,
+                new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
+                new Person("Steve", "Jobs", new DateTime(1955, 2, 24)),
+            }
+};
 
 var timeElapsedOfSearchInList = testCollections.GetTimeElapsedOfSearchInList(researchTeam);
 var timeElapsedOfSearchInListTopic = testCollections.GetTimeElapsedOfSearchInListTopic(researchTeam);
 var timeElapsedOfSearchInDictionary = testCollections.GetTimeElapsedOfSearchInDictionary(researchTeam);
 var timeElapsedOfSearchInDictionaryByTopic = testCollections.GetTimeElapsedOfSearchInDictionaryByTopic(researchTeam);
 
+Console.WriteLine($"Search element:\n{researchTeam}");
 Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
 Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
 Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
