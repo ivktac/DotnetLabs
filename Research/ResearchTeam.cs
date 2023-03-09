@@ -46,8 +46,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         private set => _members = value;
     }
 
-    /// <summary>Gets the last publication.</summary>
-    /// <returns>The last publication.</returns>
     public Paper? LastPublication
     {
         get
@@ -76,16 +74,10 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         set => (Organization, RegistrationNumber) = (value.Organization, value.RegistrationNumber);
     }
 
-    /// <summary>Adds a papers to the publications.</summary>
-    /// <param name="papers">The papers to add.</param>
     public void AddPapers(params Paper[]? papers) => Add(papers);
 
-    /// <summary>Adds a members to the members.</summary>
-    /// <param name="members">The members to add.</param>
     public void AddMembers(params Person[]? members) => Add(members);
 
-    /// <summary>Gets the members of the team who have no publications.</summary>
-    /// <returns>The members of the team who have no publications.</returns>
     public IEnumerable<Person> GetPersonsWithNoPublications()
     {
         foreach (var member in this)
@@ -97,9 +89,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         }
     }
 
-    /// <summary>Gets the members of the team who have more than n publications. If n is not specified, returns the members of the team who have at least one publication.</summary>
-    /// <param name="n">The number of publications.</param>
-    /// <returns>The members of the team who have more than n publications.</returns>
     public IEnumerable<Person> GetPersonWithPublications(int n = 0)
     {
         foreach (var member in this)
@@ -111,11 +100,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         }
     }
 
-    /// <summary>
-    /// Gets the papers published within the last n years.
-    /// </summary>
-    /// <param name="n">The number of years.</param>
-    /// <returns>The papers published within the last n years.</returns>
     public IEnumerable<Paper> GetPapersWithinLastYears(int n)
     {
         foreach (var publication in Publications)
@@ -127,10 +111,6 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, ICo
         }
     }
 
-    /// <summary>
-    /// Gets the papers published in the last year.
-    /// </summary>
-    /// <returns>The papers published in the last year.</returns>
     public IEnumerable<Paper> GetPapersInLastYear() => GetPapersWithinLastYears(1);
 
     public sealed override string ToString()

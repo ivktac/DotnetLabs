@@ -31,7 +31,7 @@ public class Person : INameAndCopy
 
     public static bool operator ==(Person p1, Person p2) => p1.Equals(p2);
 
-    public static bool operator !=(Person p1, Person p2) => !p1.Equals(p2); // or should I use !(p1 == p2)?
+    public static bool operator !=(Person p1, Person p2) => !p1.Equals(p2);
 
     public override bool Equals(object? obj)
     {
