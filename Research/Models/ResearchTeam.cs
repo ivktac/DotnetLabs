@@ -5,11 +5,7 @@ using Research.Enums;
 
 namespace Research.Models;
 
-public partial class ResearchTeam
-    : Team,
-        INameAndCopy,
-        IEnumerable<Person>,
-        IComparable<ResearchTeam>
+public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable<ResearchTeam>
 {
     private string _topic = default!;
     private TimeFrame _timeFrame = default!;

@@ -7,7 +7,8 @@ var researchTeamsProgrammingLanguages = new ResearchTeamCollection("Programming 
 
 var teamsProgrammingLanguagesJournal = new TeamsJournal();
 
-researchTeamsProgrammingLanguages.ResearchTeamAdded += teamsProgrammingLanguagesJournal.OnResearchTeamAddedOrInserted;
+researchTeamsProgrammingLanguages.ResearchTeamAdded +=
+    teamsProgrammingLanguagesJournal.OnResearchTeamAddedOrInserted;
 researchTeamsProgrammingLanguages.ResearchTeamInserted +=
     teamsProgrammingLanguagesJournal.OnResearchTeamAddedOrInserted;
 
