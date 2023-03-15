@@ -1,5 +1,3 @@
-using System;
-
 namespace Research.Models;
 
 public class Paper
