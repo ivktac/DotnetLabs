@@ -1,6 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Research.Models;
+using Research.Models;
+
+namespace Research.Tests.ModelsTests;
 
 [TestClass]
 public class TeamTest

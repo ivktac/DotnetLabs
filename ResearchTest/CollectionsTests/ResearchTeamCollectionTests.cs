@@ -2,11 +2,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Research.Models;
 using Research.Enums;
+using Research.Collections;
 
-namespace Research.Collections;
+namespace Research.Tests.CollectionsTests;
 
 [TestClass]
-public class ResearchTeamCollectionTest
+public class ResearchTeamCollectionTests
 {
     private static readonly ResearchTeamCollection _researchTeamCollection = new();
 
@@ -31,14 +32,14 @@ public class ResearchTeamCollectionTest
     }
 
     [TestMethod]
-    [Ignore("Until fixed bug in dotnet runtime")]
     public void TestResearchTeamWithinTwoYears()
     {
         var expected = _researchTeamCollection.Where(x => x.TimeFrame == TimeFrame.TwoYears);
 
         var actual = _researchTeamCollection.ResearchTeamWithinTwoYears;
 
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(actual.Count(), expected.Count());
+        CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
     }
 
     [TestMethod]
@@ -51,7 +52,7 @@ public class ResearchTeamCollectionTest
         );
         var actual = _researchTeamCollection.NGroup(count);
 
-        Assert.AreEqual(expected.ToList(), actual);
+        CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
     }
 
     private static ResearchTeam GetRandomResearchTeam()
