@@ -4,7 +4,7 @@ using Research.Models;
 using Research.Enums;
 using Research.Collections;
 
-namespace Research.Tests.CollectionsTests;
+namespace ResearchTest.CollectionsTests;
 
 [TestClass]
 public class ResearchTeamCollectionTests

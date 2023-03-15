@@ -2,10 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Research.Models;
 
-namespace Research.Tests.ModelsTests;
+namespace ResearchTest.ModelsTests;
 
 [TestClass]
-public class TeamTest
+public class TeamTests
 {
     [TestMethod]
     public void TestThatSetRegistrationNumberThrowsException()

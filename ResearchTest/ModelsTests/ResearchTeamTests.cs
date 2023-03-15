@@ -3,10 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Research.Enums;
 using Research.Models;
 
-namespace Research.Tests.ModelsTests;
+namespace ResearchTest.ModelsTests;
 
 [TestClass]
-public class ResearchTeamTest
+public class ResearchTeamTests
 {
     private static ResearchTeam _researchTeam = default!;
 
