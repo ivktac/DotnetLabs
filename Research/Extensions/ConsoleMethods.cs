@@ -7,7 +7,8 @@ public static class ConsoleMethods
     public static Person? ReadPerson()
     {
         Console.WriteLine("Enter person's name, surname and date of birth (delimeter is space):");
-        string[] input = Console.ReadLine()?.Split(' ') ?? new string[3] { "John", "Doe", "1990-01-01" };
+        string[] input =
+            Console.ReadLine()?.Split(' ') ?? new string[3] { "John", "Doe", "1990-01-01" };
 
         if (input.Length != 3)
         {
@@ -24,7 +25,8 @@ public static class ConsoleMethods
     public static Paper? ReadPaper()
     {
         Console.WriteLine("Enter paper's title, author and publish date (delimeter is space):");
-        string[] input = Console.ReadLine()?.Split(' ') ?? new string[3] { "Paper", "John Doe", "2020-01-01" };
+        string[] input =
+            Console.ReadLine()?.Split(' ') ?? new string[3] { "Paper", "John Doe", "2020-01-01" };
 
         if (input.Length != 3)
         {
