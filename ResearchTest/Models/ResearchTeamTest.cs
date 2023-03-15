@@ -6,10 +6,12 @@ namespace Research.Models;
 [TestClass]
 public class ResearchTeamTest
 {
-    [TestMethod]
-    public void TestGetPersonsWithNoPublications()
+    private static ResearchTeam researchTeam = default!;
+
+    [ClassInitialize]
+    public static void Initialize(TestContext testContext)
     {
-        var researchTeam = new ResearchTeam("Topic", "Organization", 1, TimeFrame.Long);
+        researchTeam = new ResearchTeam("Topic", "Organization", 1, TimeFrame.Long);
         researchTeam.AddMembers(new Person("Name", "Surname", new DateTime(2000, 1, 1)));
         researchTeam.AddPapers(
             new Paper(
@@ -18,6 +20,11 @@ public class ResearchTeamTest
                 new DateTime(2000, 1, 1)
             )
         );
+    }
+
+    [TestMethod]
+    public void TestGetPersonsWithNoPublications()
+    {
         var expected = new List<Person>();
         var actual = researchTeam.GetPersonsWithNoPublications();
         CollectionAssert.AreEqual(expected, actual.ToList());
@@ -26,15 +33,6 @@ public class ResearchTeamTest
     [TestMethod]
     public void TestGetPersonWithPublications()
     {
-        var researchTeam = new ResearchTeam("Topic", "Organization", 1, TimeFrame.Long);
-        researchTeam.AddMembers(new Person("Name", "Surname", new DateTime(2000, 1, 1)));
-        researchTeam.AddPapers(
-            new Paper(
-                "Title",
-                new Person("Name", "Surname", new DateTime(2000, 1, 1)),
-                new DateTime(2000, 1, 1)
-            )
-        );
         var expected = new List<Person> { new Person("Name", "Surname", new DateTime(2000, 1, 1)) };
         var actual = researchTeam.GetPersonWithPublications();
         CollectionAssert.AreEqual(expected, actual.ToList());
@@ -43,15 +41,6 @@ public class ResearchTeamTest
     [TestMethod]
     public void TestGetPersonWithMoreOnePublications()
     {
-        var researchTeam = new ResearchTeam("Topic", "Organization", 1, TimeFrame.Long);
-        researchTeam.AddMembers(new Person("Name", "Surname", new DateTime(2000, 1, 1)));
-        researchTeam.AddPapers(
-            new Paper(
-                "Title",
-                new Person("Name", "Surname", new DateTime(2000, 1, 1)),
-                new DateTime(2000, 1, 1)
-            )
-        );
         researchTeam.AddPapers(
             new Paper(
                 "Title",
