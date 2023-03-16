@@ -9,7 +9,7 @@ public class Person : INameAndCopy
     private DateTime _birthday = default!;
 
     public Person()
-        : this("John", "Doe", new DateTime(1990, 1, 1)) { }
+        : this("John", "Doe", new(1990, 1, 1)) { }
 
     public Person(string name, string surname, DateTime birthday)
     {

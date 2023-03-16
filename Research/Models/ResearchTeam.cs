@@ -12,6 +12,9 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     private List<Person> _members = default!;
     private List<Paper> _publications = default!;
 
+    public ResearchTeam()
+        : this("No topic", "No organization", 1, TimeFrame.Year) { }
+
     public ResearchTeam(
         string topic,
         string organization,
@@ -22,12 +25,9 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     {
         Topic = topic;
         TimeFrame = timeFrame;
-        Members = new List<Person>();
-        Publications = new List<Paper>();
+        Members = new ();
+        Publications = new ();
     }
-
-    public ResearchTeam()
-        : this("No topic", "No organization", 0, TimeFrame.Year) { }
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
@@ -91,7 +91,7 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     {
         foreach (var member in this)
         {
-            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count == 0)
+            if (Publications.Where(publication => publication.Author.Equals(member)).Count() == 0)
             {
                 yield return member;
             }
@@ -102,7 +102,7 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     {
         foreach (var member in this)
         {
-            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count > n)
+            if (Publications.Where(publication => publication.Author.Equals(member)).Count() > n)
             {
                 yield return member;
             }

@@ -5,7 +5,7 @@ public class Paper
     private DateTime _publishDate = default!;
 
     public Paper()
-        : this("Untitled", new Person(), DateTime.Now) { }
+        : this("Untitled", new(), DateTime.Now) { }
 
     public Paper(string title, Person author, DateTime publishDate)
     {

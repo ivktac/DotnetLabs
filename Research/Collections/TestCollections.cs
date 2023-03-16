@@ -20,10 +20,10 @@ public class TestCollections
     public TestCollections(int count)
     {
         Count = count;
-        _teams = new List<Team>(count);
-        _topics = new List<string>(count);
-        _researchTeams = new Dictionary<Team, ResearchTeam>(count);
-        _researchTeamsByTopic = new Dictionary<string, ResearchTeam>(count);
+        _teams = new(count);
+        _topics = new(count);
+        _researchTeams = new(count);
+        _researchTeamsByTopic = new(count);
     }
 
     public int Count { get; private init; }

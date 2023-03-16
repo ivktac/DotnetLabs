@@ -4,7 +4,7 @@ public class TeamsJournal
 {
     private readonly List<TeamsJournalEntry> _entries;
 
-    public TeamsJournal() => _entries = new List<TeamsJournalEntry>();
+    public TeamsJournal() => _entries = new();
 
     public void OnResearchTeamAddedOrInserted(object sender, TeamListHandlerEventArgs args)
     {
@@ -15,9 +15,9 @@ public class TeamsJournal
     public override string ToString()
     {
         var stringBuilder = new System.Text.StringBuilder();
-        foreach (var teamsJournalEntry in _entries)
+        foreach (var entry in _entries)
         {
-            stringBuilder.AppendLine(teamsJournalEntry.ToString());
+            stringBuilder.AppendLine(entry.ToString());
         }
         return stringBuilder.ToString();
     }
