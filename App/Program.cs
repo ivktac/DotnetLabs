@@ -115,7 +115,7 @@ var timeElapsedOfSearchInDictionary = testCollections.GetTimeElapsedOfSearchInDi
 var timeElapsedOfSearchInDictionaryByTopic =
     testCollections.GetTimeElapsedOfSearchInDictionaryByTopic(researchTeam);
 
-Console.WriteLine($"Search first emenet in collection with {testCollections.Count} elements");
+Console.WriteLine($"Search first element in collection with {testCollections.Count} elements");
 Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
 Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
 Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
@@ -132,7 +132,7 @@ timeElapsedOfSearchInDictionaryByTopic = testCollections.GetTimeElapsedOfSearchI
     researchTeam
 );
 
-Console.WriteLine($"Search last emenet in collection with {testCollections.Count} elements");
+Console.WriteLine($"Search last element in collection with {testCollections.Count} elements");
 Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
 Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
 Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
@@ -149,7 +149,25 @@ timeElapsedOfSearchInDictionaryByTopic = testCollections.GetTimeElapsedOfSearchI
     researchTeam
 );
 
-Console.WriteLine($"Search center emenet in collection with {testCollections.Count} elements");
+Console.WriteLine($"Search center element in collection with {testCollections.Count} elements");
+Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
+Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
+Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
+Console.WriteLine(
+    $"Time elapsed of search in dictionary by topic: {timeElapsedOfSearchInDictionaryByTopic}ms"
+);
+
+
+researchTeam = TestCollections.GetResearchTeam(int.MaxValue - 1);
+
+timeElapsedOfSearchInList = testCollections.GetTimeElapsedOfSearchInList(researchTeam);
+timeElapsedOfSearchInListTopic = testCollections.GetTimeElapsedOfSearchInListTopic(researchTeam);
+timeElapsedOfSearchInDictionary = testCollections.GetTimeElapsedOfSearchInDictionary(researchTeam);
+timeElapsedOfSearchInDictionaryByTopic = testCollections.GetTimeElapsedOfSearchInDictionaryByTopic(
+    researchTeam
+);
+
+Console.WriteLine($"Search not exist element in collection with {testCollections.Count} elements");
 Console.WriteLine($"Time elapsed of search in list: {timeElapsedOfSearchInList}ms");
 Console.WriteLine($"Time elapsed of search in list topic: {timeElapsedOfSearchInListTopic}ms");
 Console.WriteLine($"Time elapsed of search in dictionary: {timeElapsedOfSearchInDictionary}ms");
