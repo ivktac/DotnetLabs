@@ -68,6 +68,13 @@ class Program
             Console.WriteLine(person);
         }
 
+        Console.WriteLine("Persons with more than one publication:");
+
+        foreach (var person in microsoftResearch.GetPersonWithPublications(1))
+        {
+            Console.WriteLine(person);
+        }
+
         Console.WriteLine("Publications in last year:");
 
         foreach (var paper in microsoftResearch.GetPapersInLastYear())
