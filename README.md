@@ -1,30 +1,42 @@
-## TODO
+## Lab3
 
-- [x] Create interface `INameAndCopy` with property `Name` and method `object DeepCopy()`
-- [x] Create new class `Team` and `ResearchTeam` that implement `Team` and `INameAndCopy` respectively
-- [x] Update class `Person`, `Paper` that implement `INameAndCopy`
+### Main
 
-### Class `Person`
+1. створити об'єкти типу ResearchTeamCollection, заповнити його і вивести:
 
-- [x] Override method `DeepCopy()` to return new instance of `Person` with same properties
+![зображення](https://user-images.githubusercontent.com/116971836/225552544-c701bbd9-ad10-4d5a-9497-8808f4fc3d85.png)
 
-### Class `Paper`
+2. викликати методи, що сортують список 
 
-- [x] Override method `bool Equals(object obj)` to compare two papers by `Title` and `Author`
-- [x] Add operator `==` and `!=` to compare two papers by `Title` and `Author`
-- [x] Override method `int GetHashCode()` to return hash code of `Title` and `Author`
-- [x] Override method `DeepCopy()` to return new instance of `Paper` with same properties
+- по реєстраційному коду
 
-### Class `Team`
+![зображення](https://user-images.githubusercontent.com/116971836/225553419-1a7e1d95-8754-490d-a1d1-40a2923e3cd9.png)
 
-- [x] private field `string` for name of team
-- [x] private field `int` for registration number of team
-- [x] constructor with parameters `string` and `int`
-- [x] constructor without parameters
-- [x] property `string Name` for name of team
-- [x] property `int RegistrationNumber` for registration number of team that should throw exception if value is less than 0
-- [x] Override method `DeepCopy()` to return new instance of `Team` with same properties
-- [x] Implement interface `INameAndCopy`
-- [x] Override method `string ToString()` to return string with name of team and registration number of team
-- [x] Override method `bool Equals(object obj)` to compare two teams by `Name` and `RegistrationNumber`
 
+- по назві теми
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553340-0e41c3c6-6c93-420d-abdd-a4ae33e093a7.png)
+
+
+- кількість публікацій
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553238-21d3cf7a-3390-48f9-b147-bbb1422d9e48.png)
+
+3. операцій зі списком List<ResearchTeam> у ResearchTeamCollection
+
+- мінімальне значення номера реєстрації
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553597-5998aec3-14cc-4a8d-8cc0-ad080df76032.png)
+
+- фільтрацію з травилістю досліджень TimeFrame.TwoYears
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553686-247503a3-a1cb-48fa-ac93-13d263b8317e.png)
+
+- групування елементв по кількісто публікацій
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553784-5632386f-d00d-40e8-abda-95f0c0d7a1b0.png)
+
+
+4. створити об'єкти типу TestCollections, викликати метод для пошуку в колеекціях першого, центрального, останнього та елемента що не входить в колекцію
+
+![зображення](https://user-images.githubusercontent.com/116971836/225553066-fc3e62d5-c735-4e26-ba48-0db7af76be47.png)
