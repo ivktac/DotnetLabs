@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 using Research.Services;
 using Research.Enums;
+using Research.Extensions;
 
 namespace Research.Models;
 
@@ -11,6 +14,7 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     private TimeFrame _timeFrame = default!;
     private List<Person> _members = default!;
     private List<Paper> _publications = default!;
+    private ConsoleExtension _console = new();
 
     public ResearchTeam(
         string topic,
@@ -34,13 +38,13 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     public string Topic
     {
         get => _topic;
-        init => _topic = value;
+        private set => _topic = value;
     }
 
     public TimeFrame TimeFrame
     {
         get => _timeFrame;
-        init => _timeFrame = value;
+        private set => _timeFrame = value;
     }
 
     public List<Paper> Publications
@@ -145,18 +149,80 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
         return stringBuilder.ToString();
     }
 
+    public bool Save(string filename)
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(this);
+
+            File.WriteAllText(filename, json);
+
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Error while saving to file: {exception.Message}");
+            return false;
+        }
+    }
+
+    public bool Load(string filename)
+    {
+        try
+        {
+            string json = File.ReadAllText(filename);
+
+            ResearchTeam researchTeam = JsonSerializer.Deserialize<ResearchTeam>(json)!;
+
+            (Topic, TimeFrame, Members, Publications, Team) = (
+                researchTeam.Topic,
+                researchTeam.TimeFrame,
+                researchTeam.Members,
+                researchTeam.Publications,
+                researchTeam.Team
+            );
+
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Error while loading from file: {exception.Message}");
+            return false;
+        }
+    }
+
+    public bool AddFromConsole()
+    {
+        try
+        {
+            Paper paper = _console.ReadPaper();
+
+            _members.Add(paper.Author);
+            _publications.Add(paper);
+
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Error while adding from console: {exception.Message}");
+            return false;
+        }
+    }
+
     public string ToShortString() =>
         $"Topic: {Topic}\nOrganization" + base.ToString() + $"Time frame: {TimeFrame}\n";
 
     public sealed override object DeepCopy()
     {
-        var researchTeam = (ResearchTeam)MemberwiseClone();
+        var options = new JsonSerializerOptions
+        {
+            IncludeFields = true,
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
 
-        researchTeam.Members = new List<Person>(Members);
-        researchTeam.Publications = new List<Paper>(Publications);
-        researchTeam.Team = (Team)Team.DeepCopy();
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(this, options);
 
-        return researchTeam;
+        return JsonSerializer.Deserialize<ResearchTeam>(bytes, options)!;
     }
 
     public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
