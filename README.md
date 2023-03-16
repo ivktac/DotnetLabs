@@ -1,4 +1,10 @@
-## Lab3
+# Lab3
+
+## Structure of Project
+
+- App: Main
+- Research: library with realization for labs
+- ResearchTests: tests for library
 
 ### Main
 
