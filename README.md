@@ -1,30 +1,45 @@
-## TODO
+## Lab2
 
-- [x] Create interface `INameAndCopy` with property `Name` and method `object DeepCopy()`
-- [x] Create new class `Team` and `ResearchTeam` that implement `Team` and `INameAndCopy` respectively
-- [x] Update class `Person`, `Paper` that implement `INameAndCopy`
+### Main
 
-### Class `Person`
+1. Створити два об'єкти типу Team з однаковими даними та перевірити, що посилання на об'єкти різні, а об'єкти рівні, вивести значення хеш-кодів для об'єктів;
 
-- [x] Override method `DeepCopy()` to return new instance of `Person` with same properties
+![зображення](https://user-images.githubusercontent.com/116971836/225549545-ed7b40ae-3f01-4d56-bcfe-866b2bf41b64.png)
 
-### Class `Paper`
+2. у блоці try/catch присвоїти власивості з номером реєстрації некоректне значення, а в обробнику виключних ситуацій вивести повідомлення про помилку
 
-- [x] Override method `bool Equals(object obj)` to compare two papers by `Title` and `Author`
-- [x] Add operator `==` and `!=` to compare two papers by `Title` and `Author`
-- [x] Override method `int GetHashCode()` to return hash code of `Title` and `Author`
-- [x] Override method `DeepCopy()` to return new instance of `Paper` with same properties
+![зображення](https://user-images.githubusercontent.com/116971836/225549685-973c1787-c2d9-49a2-9a3c-cb40a717f20b.png)
 
-### Class `Team`
+3. створити об'єкти типу ResearchTeam, додати елементи у список публікацій та список учасників проекту та вивести дані об'єкту ReseachTeam
 
-- [x] private field `string` for name of team
-- [x] private field `int` for registration number of team
-- [x] constructor with parameters `string` and `int`
-- [x] constructor without parameters
-- [x] property `string Name` for name of team
-- [x] property `int RegistrationNumber` for registration number of team that should throw exception if value is less than 0
-- [x] Override method `DeepCopy()` to return new instance of `Team` with same properties
-- [x] Implement interface `INameAndCopy`
-- [x] Override method `string ToString()` to return string with name of team and registration number of team
-- [x] Override method `bool Equals(object obj)` to compare two teams by `Name` and `RegistrationNumber`
+![зображення](https://user-images.githubusercontent.com/116971836/225550389-9d1d7527-7505-475d-b31e-4020936e6206.png)
 
+4. вивести значення властивості Team для об'єкту ResearchTeam
+
+![зображення](https://user-images.githubusercontent.com/116971836/225550684-4b92df1f-5317-4dd1-b929-84747ab9da4c.png)
+
+5. за допомогою метода DeepCopy створити повну копію об'єкта ResearchTeam. Змінити дані у вихідному об'єкті ResearchTeam та вивести копію та оригінал, копія повинна залишитися без змін
+
+![зображення](https://user-images.githubusercontent.com/116971836/225550533-17b671ec-ca64-4fc5-bbc8-8b894c8121a7.png)
+
+
+6. за допомогою оператора foreach для ітератора  вивести список учасників проекту, які не мають публікацій
+
+![зображення](https://user-images.githubusercontent.com/116971836/225550761-1a4618fd-d717-451b-b79a-fbb4e6ba0fe1.png)
+
+
+7. ..., вивести список всіх публікацій за останні 2 роки.
+
+![зображення](https://user-images.githubusercontent.com/116971836/225550809-5b310c9b-f0d3-4b77-8a9a-584256dc614a.png)
+
+8. ... у яких є публікації
+
+![зображення](https://user-images.githubusercontent.com/116971836/225551035-3b5d8f75-fc47-4f8c-8b59-385c34291779.png)
+
+9. ... мають більше одніє публікації
+
+![зображення](https://user-images.githubusercontent.com/116971836/225551694-5144ccf8-26c2-4493-a9d9-0fff659c776b.png)
+
+10. ...за останній рік
+
+![зображення](https://user-images.githubusercontent.com/116971836/225551139-60070a36-c467-4c9f-a167-a5787c0e5033.png)
