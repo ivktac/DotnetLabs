@@ -8,7 +8,7 @@ public class Team : INameAndCopy
     private int _registrationNumber = default!;
 
 
-    public Team() : this("Default team", 0) { }
+    public Team() : this("Default team", 1) { }
 
     public Team(string name, int registrationNumber)
     {
@@ -25,7 +25,7 @@ public class Team : INameAndCopy
         get => _registrationNumber;
         set
         {
-            if (value < 0)
+            if (value <= 0)
             {
                 throw new ArgumentOutOfRangeException("Registration number cannot be negative");
             }

@@ -8,19 +8,19 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
 {
     private string _topic = default!;
     private TimeFrame _timeFrame = default!;
-    private List<Person> _members = default!;
-    private List<Paper> _publications = default!;
+    private ArrayList _members = default!;
+    private ArrayList _publications = default!;
 
     public ResearchTeam(string topic, string organization, int registrationNumber, TimeFrame timeFrame)
         : base(organization, registrationNumber)
     {
         Topic = topic;
         TimeFrame = timeFrame;
-        Members = new List<Person>();
-        Publications = new List<Paper>();
+        Members = new();
+        Publications = new();
     }
 
-    public ResearchTeam() : this("No topic", "No organization", 0, TimeFrame.Year) { }
+    public ResearchTeam() : this("No topic", "No organization", 1, TimeFrame.Year) { }
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 
@@ -36,13 +36,13 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
         init => _timeFrame = value;
     }
 
-    public List<Paper> Publications
+    public ArrayList Publications
     {
         get => _publications;
         private set => _publications = value;
     }
 
-    public List<Person> Members
+    public ArrayList Members
     {
         get => _members;
         private set => _members = value;
@@ -57,7 +57,12 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
                 return null;
             }
 
-            Paper lastPublication = Publications[0];
+            Paper? lastPublication = Publications[0] as Paper;
+            if (lastPublication is null)
+            {
+                return null;
+            }
+
             foreach (Paper publication in Publications)
             {
                 if (publication.PublishDate > lastPublication.PublishDate)
@@ -84,7 +89,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     {
         foreach (var member in this)
         {
-            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count == 0)
+            if (Publications.Cast<Paper>().ToList().Where(publication => publication.Author.Equals(member)).Count() == 0)
             {
                 yield return member;
             }
@@ -95,7 +100,7 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     {
         foreach (var member in this)
         {
-            if (Publications.FindAll(publication => publication.Author.Equals(member)).Count > n)
+            if (Publications.Cast<Paper>().ToList().Where(publication => publication.Author.Equals(member)).Count() > n)
             {
                 yield return member;
             }
@@ -106,9 +111,15 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     {
         foreach (var publication in Publications)
         {
-            if (publication.PublishDate.Year >= DateTime.Now.Year - n)
+            Paper? paper = publication as Paper;
+            if (paper is null)
             {
-                yield return publication;
+                continue;
+            }
+
+            if (paper.PublishDate.Year >= DateTime.Now.Year - n)
+            {
+                yield return paper;
             }
         }
     }
@@ -134,8 +145,8 @@ public partial class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>
     {
         var researchTeam = (ResearchTeam)MemberwiseClone();
 
-        researchTeam.Members = new List<Person>(Members);
-        researchTeam.Publications = new List<Paper>(Publications);
+        researchTeam.Members = new(Members);
+        researchTeam.Publications = new(Publications);
         researchTeam.Team = (Team)Team.DeepCopy();
 
         return researchTeam;

@@ -11,7 +11,7 @@ public class ResearchTeamEnumerator : IEnumerator<Person>
 
     public ResearchTeamEnumerator(ResearchTeam researchTeam) => _researchTeam = researchTeam;
 
-    public Person Current => _researchTeam.Members[_index];
+    public Person Current => _researchTeam.Members[_index] as Person ?? throw new InvalidOperationException();
 
     object IEnumerator.Current => Current;
 
