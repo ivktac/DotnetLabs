@@ -6,24 +6,23 @@ namespace Research.Collections;
 
 public class TestCollections
 {
-    private List<Team> _teams;
-    private List<string> _topics;
-    private Dictionary<Team, ResearchTeam> _researchTeams;
-    private Dictionary<string, ResearchTeam> _researchTeamsByTopic;
+    private readonly List<Team> _teams;
+    private readonly List<string> _topics;
+    private readonly Dictionary<Team, ResearchTeam> _researchTeams;
+    private readonly Dictionary<string, ResearchTeam> _researchTeamsByTopic;
 
     public static ResearchTeam GetResearchTeam(int num) =>
-        new ResearchTeam($"Topic{num}", $"Org{num}", num, TimeFrame.TwoYears);
+        new ResearchTeam($"Topic{num}", $"Org{num}", num + 1, TimeFrame.TwoYears);
 
-    public TestCollections()
-        : this(0) { }
+    public TestCollections(): this(0) { }
 
     public TestCollections(int count)
     {
         Count = count;
-        _teams = new List<Team>(count);
-        _topics = new List<string>(count);
-        _researchTeams = new Dictionary<Team, ResearchTeam>(count);
-        _researchTeamsByTopic = new Dictionary<string, ResearchTeam>(count);
+        _teams = new(count);
+        _topics = new(count);
+        _researchTeams = new(count);
+        _researchTeamsByTopic = new(count);
     }
 
     public int Count { get; private init; }

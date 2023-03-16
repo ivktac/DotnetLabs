@@ -26,12 +26,12 @@ public partial class ResearchTeam
     {
         Topic = topic;
         TimeFrame = timeFrame;
-        Members = new List<Person>();
-        Publications = new List<Paper>();
+        Members = new();
+        Publications = new();
     }
 
     public ResearchTeam()
-        : this("No topic", "No organization", 0, TimeFrame.Year) { }
+        : this("No topic", "No organization", 1, TimeFrame.Year) { }
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
 

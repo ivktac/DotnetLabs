@@ -10,8 +10,7 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
 {
     private List<ResearchTeam> _researchTeams;
 
-    public ResearchTeamCollection()
-        : this(new List<ResearchTeam>()) { }
+    public ResearchTeamCollection(): this(new()) { }
 
     public ResearchTeamCollection(List<ResearchTeam> researchTeams) =>
         _researchTeams = researchTeams;
