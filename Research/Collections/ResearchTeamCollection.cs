@@ -8,39 +8,39 @@ namespace Research.Collections;
 
 public class ResearchTeamCollection : IEnumerable<ResearchTeam>
 {
-    private List<ResearchTeam> _researchTeams;
+    public List<ResearchTeam> ResearchTeams { get; private set; }
 
     public ResearchTeamCollection(): this(new()) { }
 
     public ResearchTeamCollection(List<ResearchTeam> researchTeams) =>
-        _researchTeams = researchTeams;
+        ResearchTeams = researchTeams;
 
     public int MinimumRegistrationNumber
     {
         get
         {
-            if (_researchTeams.Count == 0)
+            if (ResearchTeams is null)
             {
                 return 0;
             }
 
-            return _researchTeams.Min(x => x.Team.RegistrationNumber);
+            return ResearchTeams.Min(x => x.Team.RegistrationNumber);
         }
     }
 
     public IEnumerable<ResearchTeam> ResearchTeamWithinTwoYears =>
-        _researchTeams.Where(x => x[TimeFrame.TwoYears]);
+        ResearchTeams.Where(x => x[TimeFrame.TwoYears]);
 
     public void AddDefaults() => AddResearchTeams(new ResearchTeam(), new ResearchTeam());
 
     public void AddResearchTeams(params ResearchTeam[] researchTeams) =>
-        _researchTeams.AddRange(researchTeams);
+        ResearchTeams.AddRange(researchTeams);
 
     public sealed override string? ToString()
     {
         var stringBuilder = new System.Text.StringBuilder();
 
-        foreach (var researchTeam in _researchTeams)
+        foreach (var researchTeam in ResearchTeams)
         {
             stringBuilder.AppendLine(researchTeam.ToString());
         }
@@ -52,7 +52,7 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
     {
         var stringBuilder = new System.Text.StringBuilder();
 
-        foreach (var researchTeam in _researchTeams)
+        foreach (var researchTeam in ResearchTeams)
         {
             stringBuilder.AppendLine(researchTeam.ToShortString());
         }
@@ -61,17 +61,17 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
     }
 
     public void SortByRegistartionNumber() =>
-        _researchTeams.Sort(
+        ResearchTeams.Sort(
             (x, y) => x.Team.RegistrationNumber.CompareTo(y.Team.RegistrationNumber)
         );
 
-    public void SortByTopic() => _researchTeams.Sort();
+    public void SortByTopic() => ResearchTeams.Sort();
 
     public void SortByPublicationsCount() =>
-        _researchTeams.Sort(new ResearchPublicationsComparer());
+        ResearchTeams.Sort(new ResearchPublicationsComparer());
 
     public List<ResearchTeam> NGroup(int value) =>
-        _researchTeams
+        ResearchTeams
             .GroupBy(x => x.Members.Count == value)
             .Aggregate(
                 new List<ResearchTeam>(),
@@ -82,7 +82,7 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
                 }
             );
 
-    public IEnumerator<ResearchTeam> GetEnumerator() => _researchTeams.GetEnumerator();
+    public IEnumerator<ResearchTeam> GetEnumerator() => ResearchTeams.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
