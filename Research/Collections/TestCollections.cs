@@ -6,15 +6,11 @@ namespace Research.Collections;
 
 public class TestCollections
 {
-    public List<Team> Teams { get; private set; }
-    public List<string> Topics { get; private set; }
-    public Dictionary<Team, ResearchTeam> ResearchTeams { get; private set; }
-    public Dictionary<string, ResearchTeam> ResearchTeamsByTopic { get; private set; }
-
     public static ResearchTeam GetResearchTeam(int num) =>
         new ResearchTeam($"Topic{num}", $"Org{num}", num + 1, TimeFrame.TwoYears);
 
-    public TestCollections(): this(0) { }
+    public TestCollections()
+        : this(0) { }
 
     public TestCollections(int count)
     {
@@ -26,6 +22,10 @@ public class TestCollections
     }
 
     public int Count { get; private init; }
+    public List<Team> Teams { get; private set; }
+    public List<string> Topics { get; private set; }
+    public Dictionary<Team, ResearchTeam> ResearchTeams { get; private set; }
+    public Dictionary<string, ResearchTeam> ResearchTeamsByTopic { get; private set; }
 
     public ResearchTeam this[int index] => GetResearchTeam(index);
 

@@ -157,7 +157,6 @@ Console.WriteLine(
     $"Time elapsed of search in dictionary by topic: {timeElapsedOfSearchInDictionaryByTopic}ms"
 );
 
-
 researchTeam = TestCollections.GetResearchTeam(int.MaxValue - 1);
 
 timeElapsedOfSearchInList = testCollections.GetTimeElapsedOfSearchInList(researchTeam);

@@ -8,12 +8,12 @@ namespace Research.Collections;
 
 public class ResearchTeamCollection : IEnumerable<ResearchTeam>
 {
-    public List<ResearchTeam> ResearchTeams { get; private set; }
-
     public ResearchTeamCollection(): this(new()) { }
 
     public ResearchTeamCollection(List<ResearchTeam> researchTeams) =>
         ResearchTeams = researchTeams;
+
+    public List<ResearchTeam> ResearchTeams { get; private set; }
 
     public int MinimumRegistrationNumber
     {
