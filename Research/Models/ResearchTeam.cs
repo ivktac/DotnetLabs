@@ -25,8 +25,8 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     {
         Topic = topic;
         TimeFrame = timeFrame;
-        Members = new ();
-        Publications = new ();
+        Members = new();
+        Publications = new();
     }
 
     public bool this[TimeFrame timeFrame] => TimeFrame == timeFrame;
