@@ -43,7 +43,6 @@ public class ResearchTeamCollectionTests
     }
 
     [TestMethod]
-    [Ignore("Until fixed bug in dotnet runtime")]
     public void TestNGroup()
     {
         int count = 2;
