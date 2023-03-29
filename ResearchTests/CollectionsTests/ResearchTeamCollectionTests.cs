@@ -54,6 +54,27 @@ public class ResearchTeamCollectionTests
         CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
     }
 
+    [TestMethod]
+    public void TestTeamListHandler()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            Assert.AreEqual(_researchTeamCollection, source);
+            Assert.AreEqual(_researchTeamCollection.Name, args.CollectionName);
+
+            _researchTeamCollection.AddResearchTeams(GetRandomResearchTeam());
+            Assert.AreEqual("Added element to collection", args.ChangeType);
+
+            _researchTeamCollection.InsertAt(0, GetRandomResearchTeam());
+            Assert.AreEqual("Inserted element to collection", args.ChangeType);
+            Assert.AreEqual(0, args.IndexElement);
+
+            _researchTeamCollection.Remove(3);
+            Assert.AreEqual("Removed element from collection", args.ChangeType);
+            Assert.AreEqual(3, args.IndexElement);
+        });
+    }
+
     private static ResearchTeam GetRandomResearchTeam()
     {
         var random = new Random();

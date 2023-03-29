@@ -40,6 +40,8 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
     public IEnumerable<ResearchTeam> ResearchTeamWithinTwoYears =>
         ResearchTeams.Where(x => x[TimeFrame.TwoYears]);
 
+    public static object TeamListHandlerEventArgs { get; set; } = default!;
+
     public ResearchTeam this[int index]
     {
         get => ResearchTeams[index];
