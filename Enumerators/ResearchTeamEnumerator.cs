@@ -1,7 +1,7 @@
 using System.Collections;
 using Research.Models;
 
-namespace Research.Services;
+namespace Research.Enumerators;
 
 public class ResearchTeamEnumerator : IEnumerator<Person>
 {
