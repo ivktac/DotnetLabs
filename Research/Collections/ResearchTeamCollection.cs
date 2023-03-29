@@ -2,7 +2,7 @@ using System.Collections;
 
 using Research.Enums;
 using Research.Models;
-using Research.Services;
+using Research.Comparators;
 
 namespace Research.Collections;
 
@@ -68,7 +68,7 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
     public void SortByTopic() => ResearchTeams.Sort();
 
     public void SortByPublicationsCount() =>
-        ResearchTeams.Sort(new ResearchPublicationsComparer());
+        ResearchTeams.Sort(new ResearchPublicationsComparator());
 
     public List<ResearchTeam> NGroup(int value) =>
         ResearchTeams

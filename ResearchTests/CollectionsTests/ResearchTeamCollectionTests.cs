@@ -48,10 +48,10 @@ public class ResearchTeamCollectionTests
         int count = 2;
         var expected = _researchTeamCollection.GroupBy(
             keySelector: x => x.Publications.Count == count
-        );
+        ).SelectMany(x => x).ToList();
         var actual = _researchTeamCollection.NGroup(count);
 
-        CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     private static ResearchTeam GetRandomResearchTeam()
