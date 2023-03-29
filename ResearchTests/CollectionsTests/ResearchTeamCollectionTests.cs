@@ -43,13 +43,12 @@ public class ResearchTeamCollectionTests
     }
 
     [TestMethod]
-    [Ignore("Until fixed bug in dotnet runtime")]
     public void TestNGroup()
     {
         int count = 2;
         var expected = _researchTeamCollection.GroupBy(
             keySelector: x => x.Publications.Count == count
-        );
+        ).SelectMany(x => x).ToList();
         var actual = _researchTeamCollection.NGroup(count);
 
         CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
@@ -61,15 +60,15 @@ public class ResearchTeamCollectionTests
 
         var researchTeam = new ResearchTeam
         {
-            Topic = $"Topic {random.Next(0, 100)}",
-            Organization = $"Organization {random.Next(0, 100)}",
-            RegistrationNumber = random.Next(0, 100),
-            TimeFrame = (TimeFrame)random.Next(0, 3),
+            Topic = $"Topic {random.Next(1, 100)}",
+            Organization = $"Organization {random.Next(1, 100)}",
+            RegistrationNumber = random.Next(1, 100),
+            TimeFrame = (TimeFrame)random.Next(1, 3),
         };
 
         var person = new Person(
-            $"First name {random.Next(0, 100)}",
-            $"Last name {random.Next(0, 100)}",
+            $"First name {random.Next(1, 100)}",
+            $"Last name {random.Next(1, 100)}",
             new DateTime(random.Next(1900, 2021), random.Next(1, 12), random.Next(1, 28))
         );
 
@@ -77,7 +76,7 @@ public class ResearchTeamCollectionTests
 
         researchTeam.AddPapers(
             new Paper(
-                $"Paper {random.Next(0, 100)}",
+                $"Paper {random.Next(1, 100)}",
                 person,
                 new DateTime(random.Next(1900, 2021), random.Next(1, 12), random.Next(1, 28))
             )

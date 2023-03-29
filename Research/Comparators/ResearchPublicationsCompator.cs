@@ -1,8 +1,8 @@
 using Research.Models;
 
-namespace Research.Services;
+namespace Research.Comparators;
 
-public class ResearchPublicationsComparer : IComparer<ResearchTeam>
+public class ResearchPublicationsComparator : IComparer<ResearchTeam>
 {
     public int Compare(ResearchTeam? x, ResearchTeam? y)
     {

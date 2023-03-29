@@ -1,4 +1,4 @@
-namespace Research.Services;
+namespace Research.Interfaces;
 
 public interface INameAndCopy
 {

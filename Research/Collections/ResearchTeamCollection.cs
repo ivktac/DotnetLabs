@@ -1,16 +1,18 @@
 using System.Collections;
-using Reseach.Services;
-using Research.Enums;
+
 using Research.Models;
-using Research.Services;
+using Research.Comparators;
+using Research.Enums;
 
 namespace Research.Collections;
 
 public class ResearchTeamCollection : IEnumerable<ResearchTeam>
 {
-    public ResearchTeamCollection(): this(new("No name collection")) { }
+    public ResearchTeamCollection()
+        : this(new("No name collection")) { }
 
-    public ResearchTeamCollection(string name) : this(name, new()) { }
+    public ResearchTeamCollection(string name)
+        : this(name, new()) { }
 
     public ResearchTeamCollection(string name, List<ResearchTeam> researchTeams)
     {
@@ -104,7 +106,7 @@ public class ResearchTeamCollection : IEnumerable<ResearchTeam>
     public void SortByTopic() => ResearchTeams.Sort();
 
     public void SortByPublicationsCount() =>
-        ResearchTeams.Sort(new ResearchPublicationsComparer());
+        ResearchTeams.Sort(new ResearchPublicationsComparator());
 
     public List<ResearchTeam> NGroup(int value) =>
         ResearchTeams

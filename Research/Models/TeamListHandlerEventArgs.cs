@@ -1,4 +1,4 @@
-namespace Reseach.Services;
+namespace Research.Models;
 
 public class TeamListHandlerEventArgs : EventArgs
 {
