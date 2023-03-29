@@ -61,17 +61,41 @@ public class ResearchTeamCollectionTests
         {
             Assert.AreEqual(_researchTeamCollection, source);
             Assert.AreEqual(_researchTeamCollection.Name, args.CollectionName);
+        });
+    }
+
+    [TestMethod]
+    public void TestTeamListHandlerAdded()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            Assert.AreEqual(_researchTeamCollection, source);
+            Assert.AreEqual(_researchTeamCollection.Name, args.CollectionName);
 
             _researchTeamCollection.AddResearchTeams(GetRandomResearchTeam());
             Assert.AreEqual("Added element to collection", args.ChangeType);
+        });
+    }
 
+    [TestMethod]
+    public void TestTeamListHandlerInserted()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
             _researchTeamCollection.InsertAt(0, GetRandomResearchTeam());
             Assert.AreEqual("Inserted element to collection", args.ChangeType);
             Assert.AreEqual(0, args.IndexElement);
+        });
+    }
 
-            _researchTeamCollection.Remove(3);
+    [TestMethod]
+    public void TestTeamListHandlerRemoved()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            _researchTeamCollection.Remove(0);
             Assert.AreEqual("Removed element from collection", args.ChangeType);
-            Assert.AreEqual(3, args.IndexElement);
+            Assert.AreEqual(0, args.IndexElement);
         });
     }
 
