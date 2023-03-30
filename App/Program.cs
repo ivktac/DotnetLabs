@@ -1,6 +1,7 @@
 using Research.Enums;
 using Research.Models;
 using Research.Collections;
+using Research.Extensions;
 
 var programmingLanguages = new ResearchTeamCollection();
 
@@ -103,27 +104,8 @@ var example = new TestCollections(1_000_000);
 
 example.InitializeDefaultValues();
 
-void CompareElapsedTimeOfSearch(TestCollections collection, int index)
-{
-    var researchTeam = collection[index];
 
-    int[] time = new int[4];
-    
-    time[0] = collection.GetElapsedTimeOfSearchInTeams(researchTeam);
-    time[1] = collection.GetTimeElapsedOfSearchInTopics(researchTeam);
-    time[2] = collection.GetTimeElapsedOfSearchInResearchTeams(researchTeam);
-    time[3] = collection.GetTimeElapsedOfSearchInResearchTeamsByTopic(researchTeam);
-
-    Console.WriteLine($"Search {index} element in collection with {collection.Count} elements");
-    Console.WriteLine($"Time elapsed of search in teams: {time[0]}ms");
-    Console.WriteLine($"Time elapsed of search in topics: {time[1]}ms");
-    Console.WriteLine($"Time elapsed of search in research teams: {time[2]}ms");
-    Console.WriteLine(
-        $"Time elapsed of search in dictionary by research teams by topic: {time[3]}ms"
-    );
-}
-
-CompareElapsedTimeOfSearch(example, 0);
-CompareElapsedTimeOfSearch(example, example.Count / 2);
-CompareElapsedTimeOfSearch(example, example.Count - 1);
-CompareElapsedTimeOfSearch(example, int.MaxValue - 1);
+TimeElapsedExtension.CompareElapsedTimeOfSearch(example, 0);
+TimeElapsedExtension.CompareElapsedTimeOfSearch(example, example.Count / 2);
+TimeElapsedExtension.CompareElapsedTimeOfSearch(example, example.Count - 1);
+TimeElapsedExtension.CompareElapsedTimeOfSearch(example, int.MaxValue - 1);
