@@ -26,9 +26,9 @@ public static class TimeElapsedExtension
         int[] time = new int[4];
 
         time[0] = collection.GetElapsedTimeOfSearchInTeams(researchTeam);
-        time[1] = collection.GetTimeElapsedOfSearchInTopics(researchTeam);
-        time[2] = collection.GetTimeElapsedOfSearchInResearchTeams(researchTeam);
-        time[3] = collection.GetTimeElapsedOfSearchInResearchTeamsByTopic(researchTeam);
+        time[1] = collection.GetElapsedTimeOfSearchInTopics(researchTeam);
+        time[2] = collection.GetElapsedTimeOfSearchInResearchTeams(researchTeam);
+        time[3] = collection.GetElapsedTimeOfSearchInResearchTeamsByTopic(researchTeam);
 
         Console.WriteLine($"Search {index} element in collection with {collection.Count} elements");
         Console.WriteLine($"Time elapsed of search in teams: {time[0]}ms");

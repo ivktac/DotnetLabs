@@ -37,7 +37,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInResearchTeams(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInResearchTeams(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
@@ -45,7 +45,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInResearchTeamsByTopic(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInResearchTeamsByTopic(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
@@ -53,7 +53,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInTopics(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInTopics(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
