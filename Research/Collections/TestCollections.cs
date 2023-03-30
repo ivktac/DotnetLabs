@@ -29,7 +29,7 @@ public class TestCollections
 
     public ResearchTeam this[int index] => GetResearchTeam(index);
 
-    public int GetTimeElapsedOfSearchInList(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInTeams(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
@@ -37,7 +37,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInDictionary(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInResearchTeams(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
@@ -45,7 +45,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInDictionaryByTopic(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInResearchTeamsByTopic(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {
@@ -53,7 +53,7 @@ public class TestCollections
         });
     }
 
-    public int GetTimeElapsedOfSearchInListTopic(ResearchTeam researchTeam)
+    public int GetElapsedTimeOfSearchInTopics(ResearchTeam researchTeam)
     {
         return TimeElapsedExtension.GetTimeElapsed(() =>
         {

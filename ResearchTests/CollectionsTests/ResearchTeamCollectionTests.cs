@@ -51,7 +51,7 @@ public class ResearchTeamCollectionTests
         ).SelectMany(x => x).ToList();
         var actual = _researchTeamCollection.NGroup(count);
 
-        CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]

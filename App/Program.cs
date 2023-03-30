@@ -1,6 +1,7 @@
 using Research.Enums;
 using Research.Models;
 using Research.Collections;
+using Research.Extensions;
 
 var programmingLanguages = new ResearchTeamCollection("Programming Languages");
 
@@ -13,7 +14,7 @@ programmingLanguages.ResearchTeamInserted +=
 
 var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
 
-var c_sharp = new ResearchTeam
+var csharp = new ResearchTeam
 {
     Topic = "C#",
     Organization = "Microsoft",
@@ -21,17 +22,17 @@ var c_sharp = new ResearchTeam
     TimeFrame = TimeFrame.Long,
 };
 
-c_sharp.AddMembers(
+csharp.AddMembers(
     anders,
     new Person("Bill", "Gates", new DateTime(1955, 10, 28)),
     new Person("Steve", "Jobs", new DateTime(1955, 2, 24))
 );
 
-c_sharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
+csharp.AddPapers(new Paper("C# 1.0", anders, new DateTime(2000, 12, 1)));
 
-c_sharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
+csharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
 
-c_sharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
+csharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
 
 var rust = new ResearchTeam
 {
@@ -62,7 +63,7 @@ rust.AddPapers(
     )
 );
 
-programmingLanguages.AddResearchTeams(rust, c_sharp);
+programmingLanguages.AddResearchTeams(rust, csharp);
 
 programmingLanguages.InsertAt(
     0,
