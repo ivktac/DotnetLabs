@@ -213,17 +213,23 @@ public class ResearchTeam : Team, INameAndCopy, IEnumerable<Person>, IComparable
     public string ToShortString() =>
         $"Topic: {Topic}\nOrganization" + base.ToString() + $"Time frame: {TimeFrame}\n";
 
-    public sealed override object DeepCopy()
+    public sealed override ResearchTeam DeepCopy()
     {
-        var options = new JsonSerializerOptions
+        using (var stream = new MemoryStream())
         {
-            IncludeFields = true,
-            ReferenceHandler = ReferenceHandler.Preserve
-        };
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            };
 
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(this, options);
+            JsonSerializer.SerializeAsync(stream, this, options).Wait();
 
-        return JsonSerializer.Deserialize<ResearchTeam>(bytes, options)!;
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return JsonSerializer.DeserializeAsync<ResearchTeam>(stream, options).Result!;
+        }
     }
 
     public IEnumerator<Person> GetEnumerator() => new ResearchTeamEnumerator(this);
