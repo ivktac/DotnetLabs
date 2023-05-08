@@ -13,13 +13,7 @@ programmingLanguages.ResearchTeamInserted +=
 
 var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
 
-var c_sharp = new ResearchTeam
-{
-    Topic = "C#",
-    Organization = "Microsoft",
-    RegistrationNumber = 1,
-    TimeFrame = TimeFrame.Long,
-};
+var c_sharp = new ResearchTeam("C#", "Microsoft", 1, TimeFrame.Long);
 
 c_sharp.AddMembers(
     anders,
@@ -33,13 +27,7 @@ c_sharp.AddPapers(new Paper("C# 2.0", anders, new DateTime(2005, 12, 1)));
 
 c_sharp.AddPapers(new Paper("C# 3.0", anders, new DateTime(2008, 12, 1)));
 
-var rust = new ResearchTeam
-{
-    Topic = "Rust",
-    Organization = "Mozilla",
-    RegistrationNumber = 2,
-    TimeFrame = TimeFrame.TwoYears,
-};
+var rust = new ResearchTeam("Rust", "Mozilla", 2, TimeFrame.TwoYears);
 
 rust.AddMembers(
     new Person("Graydon", "Hoare", new DateTime(1986, 12, 2)),
@@ -66,13 +54,7 @@ programmingLanguages.AddResearchTeams(rust, c_sharp);
 
 programmingLanguages.InsertAt(
     0,
-    new ResearchTeam
-    {
-        Topic = "C++",
-        Organization = "Bjarne Stroustrup",
-        RegistrationNumber = 3,
-        TimeFrame = TimeFrame.TwoYears,
-    }
+    new ResearchTeam("C++", "Bjarne Stroustrup", 3, TimeFrame.TwoYears)
 );
 
 Console.WriteLine(programmingLanguagesJournal.ToString());
@@ -85,61 +67,25 @@ books.ResearchTeamAdded += booksJournal.OnResearchTeamAddedOrInserted;
 books.ResearchTeamInserted += booksJournal.OnResearchTeamAddedOrInserted;
 
 books.AddResearchTeams(
-    new ResearchTeam
-    {
-        Topic = "C#",
-        Organization = "Microsoft",
-        RegistrationNumber = 1,
-        TimeFrame = TimeFrame.Long,
-    },
-    new ResearchTeam
-    {
-        Topic = "Rust",
-        Organization = "Mozilla",
-        RegistrationNumber = 2,
-        TimeFrame = TimeFrame.TwoYears,
-    }
+    new ResearchTeam("C#", "Microsoft", 1, TimeFrame.Long),
+    new ResearchTeam("Rust", "Mozilla", 2, TimeFrame.TwoYears)
 );
 
 books.AddResearchTeams(
-    new ResearchTeam
-    {
-        Topic = "C#",
-        Organization = "Microsoft",
-        RegistrationNumber = 1,
-        TimeFrame = TimeFrame.Long,
-    },
-    new ResearchTeam
-    {
-        Topic = "Rust",
-        Organization = "Mozilla",
-        RegistrationNumber = 2,
-        TimeFrame = TimeFrame.TwoYears,
-    }
+    new ResearchTeam("C#", "Microsoft", 1, TimeFrame.Long),
+    new ResearchTeam("Rust", "Mozilla", 2, TimeFrame.TwoYears)
 );
 
 books.InsertAt(
     3,
-    new ResearchTeam
-    {
-        Topic = "C++",
-        Organization = "Bjarne Stroustrup",
-        RegistrationNumber = 3,
-        TimeFrame = TimeFrame.Long,
-    }
+    new ResearchTeam("C++", "Bjarne Stroustrup", 3, TimeFrame.Long)
 );
 
 books.Remove(4);
 
 books.InsertAt(
     4,
-    new ResearchTeam
-    {
-        Topic = "C++",
-        Organization = "Bjarne Stroustrup",
-        RegistrationNumber = 3,
-        TimeFrame = TimeFrame.Long,
-    }
+    new ResearchTeam("C++", "Bjarne Stroustrup", 3, TimeFrame.Long)
 );
 
 Console.WriteLine(booksJournal.ToString());
