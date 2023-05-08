@@ -1,6 +1,6 @@
 using System;
 
-using Research.Services;
+using Research.Interfaces;
 
 namespace Research.Models;
 
@@ -10,7 +10,7 @@ public class Team : INameAndCopy, IComparable
     private int _registrationNumber = default!;
 
     public Team()
-        : this("Default team", 0) { }
+        : this("Default team", 1) { }
 
     public Team(string name, int registrationNumber)
     {
@@ -35,9 +35,9 @@ public class Team : INameAndCopy, IComparable
         get => _registrationNumber;
         set
         {
-            if (value < 0)
+            if (value <= 0)
             {
-                throw new ArgumentException("Registration number cannot be negative");
+                throw new ArgumentException("Registration number cannot be negative or zero");
             }
 
             _registrationNumber = value;

@@ -1,11 +1,13 @@
+using Research.Interfaces;
+
 namespace Research.Models;
 
-public class Paper
+public class Paper : INameAndCopy
 {
     private DateTime _publishDate = default!;
 
     public Paper()
-        : this("Untitled", new Person(), DateTime.Now) { }
+        : this("Untitled", new(), DateTime.Now) { }
 
     public Paper(string title, Person author, DateTime publishDate)
     {
@@ -32,6 +34,14 @@ public class Paper
         }
     }
 
+    string INameAndCopy.Name
+    {
+        get => Title;
+        set => Title = value;
+    }
+
     public override string ToString() =>
         $"{Title} by {Author.ToShortString()} ({PublishDate.ToShortDateString()})";
+
+    public virtual object DeepCopy() => MemberwiseClone();
 }

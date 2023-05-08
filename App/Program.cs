@@ -1,16 +1,15 @@
 using Research.Enums;
 using Research.Models;
 using Research.Collections;
-using Reseach.Services;
 
-var researchTeamsProgrammingLanguages = new ResearchTeamCollection("Programming Languages");
+var programmingLanguages = new ResearchTeamCollection("Programming Languages");
 
-var teamsProgrammingLanguagesJournal = new TeamsJournal();
+var programmingLanguagesJournal = new TeamsJournal();
 
-researchTeamsProgrammingLanguages.ResearchTeamAdded +=
-    teamsProgrammingLanguagesJournal.OnResearchTeamAddedOrInserted;
-researchTeamsProgrammingLanguages.ResearchTeamInserted +=
-    teamsProgrammingLanguagesJournal.OnResearchTeamAddedOrInserted;
+programmingLanguages.ResearchTeamAdded +=
+    programmingLanguagesJournal.OnResearchTeamAddedOrInserted;
+programmingLanguages.ResearchTeamInserted +=
+    programmingLanguagesJournal.OnResearchTeamAddedOrInserted;
 
 var anders = new Person("Anders", "Hejlsberg", new DateTime(1955, 12, 2));
 
@@ -63,9 +62,9 @@ rust.AddPapers(
     )
 );
 
-researchTeamsProgrammingLanguages.AddResearchTeams(rust, c_sharp);
+programmingLanguages.AddResearchTeams(rust, c_sharp);
 
-researchTeamsProgrammingLanguages.InsertAt(
+programmingLanguages.InsertAt(
     0,
     new ResearchTeam
     {
@@ -76,16 +75,16 @@ researchTeamsProgrammingLanguages.InsertAt(
     }
 );
 
-Console.WriteLine(teamsProgrammingLanguagesJournal.ToString());
+Console.WriteLine(programmingLanguagesJournal.ToString());
 
-var researchTeamBooks = new ResearchTeamCollection("Research Team Books");
+var books = new ResearchTeamCollection("Research Team Books");
 
-var teamsBookJournal = new TeamsJournal();
+var booksJournal = new TeamsJournal();
 
-researchTeamBooks.ResearchTeamAdded += teamsBookJournal.OnResearchTeamAddedOrInserted;
-researchTeamBooks.ResearchTeamInserted += teamsBookJournal.OnResearchTeamAddedOrInserted;
+books.ResearchTeamAdded += booksJournal.OnResearchTeamAddedOrInserted;
+books.ResearchTeamInserted += booksJournal.OnResearchTeamAddedOrInserted;
 
-researchTeamBooks.AddResearchTeams(
+books.AddResearchTeams(
     new ResearchTeam
     {
         Topic = "C#",
@@ -102,7 +101,7 @@ researchTeamBooks.AddResearchTeams(
     }
 );
 
-researchTeamBooks.AddResearchTeams(
+books.AddResearchTeams(
     new ResearchTeam
     {
         Topic = "C#",
@@ -119,7 +118,7 @@ researchTeamBooks.AddResearchTeams(
     }
 );
 
-researchTeamBooks.InsertAt(
+books.InsertAt(
     3,
     new ResearchTeam
     {
@@ -130,9 +129,9 @@ researchTeamBooks.InsertAt(
     }
 );
 
-researchTeamBooks.Remove(4);
+books.Remove(4);
 
-researchTeamBooks.InsertAt(
+books.InsertAt(
     4,
     new ResearchTeam
     {
@@ -143,4 +142,4 @@ researchTeamBooks.InsertAt(
     }
 );
 
-Console.WriteLine(teamsBookJournal.ToString());
+Console.WriteLine(booksJournal.ToString());

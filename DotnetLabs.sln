@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research", "Research\Resear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{A593CEE0-72B6-4543-B11E-7877A7913DF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchTest", "ResearchTest\ResearchTest.csproj", "{CD656DC7-CF5D-44AA-82DE-25C487C6951B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchTests", "ResearchTests\ResearchTests.csproj", "{CD656DC7-CF5D-44AA-82DE-25C487C6951B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

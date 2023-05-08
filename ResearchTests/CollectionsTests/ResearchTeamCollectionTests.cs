@@ -43,16 +43,60 @@ public class ResearchTeamCollectionTests
     }
 
     [TestMethod]
-    [Ignore("Until fixed bug in dotnet runtime")]
     public void TestNGroup()
     {
         int count = 2;
         var expected = _researchTeamCollection.GroupBy(
             keySelector: x => x.Publications.Count == count
-        );
+        ).SelectMany(x => x).ToList();
         var actual = _researchTeamCollection.NGroup(count);
 
         CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
+    }
+
+    [TestMethod]
+    public void TestTeamListHandler()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            Assert.AreEqual(_researchTeamCollection, source);
+            Assert.AreEqual(_researchTeamCollection.Name, args.CollectionName);
+        });
+    }
+
+    [TestMethod]
+    public void TestTeamListHandlerAdded()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            Assert.AreEqual(_researchTeamCollection, source);
+            Assert.AreEqual(_researchTeamCollection.Name, args.CollectionName);
+
+            _researchTeamCollection.AddResearchTeams(GetRandomResearchTeam());
+            Assert.AreEqual("Added element to collection", args.ChangeType);
+        });
+    }
+
+    [TestMethod]
+    public void TestTeamListHandlerInserted()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            _researchTeamCollection.InsertAt(0, GetRandomResearchTeam());
+            Assert.AreEqual("Inserted element to collection", args.ChangeType);
+            Assert.AreEqual(0, args.IndexElement);
+        });
+    }
+
+    [TestMethod]
+    public void TestTeamListHandlerRemoved()
+    {
+        var handler = new ResearchTeamCollection.TeamListHandler((source, args) =>
+        {
+            _researchTeamCollection.Remove(0);
+            Assert.AreEqual("Removed element from collection", args.ChangeType);
+            Assert.AreEqual(0, args.IndexElement);
+        });
     }
 
     private static ResearchTeam GetRandomResearchTeam()
@@ -61,15 +105,15 @@ public class ResearchTeamCollectionTests
 
         var researchTeam = new ResearchTeam
         {
-            Topic = $"Topic {random.Next(0, 100)}",
-            Organization = $"Organization {random.Next(0, 100)}",
-            RegistrationNumber = random.Next(0, 100),
-            TimeFrame = (TimeFrame)random.Next(0, 3),
+            Topic = $"Topic {random.Next(1, 100)}",
+            Organization = $"Organization {random.Next(1, 100)}",
+            RegistrationNumber = random.Next(1, 100),
+            TimeFrame = (TimeFrame)random.Next(1, 3),
         };
 
         var person = new Person(
-            $"First name {random.Next(0, 100)}",
-            $"Last name {random.Next(0, 100)}",
+            $"First name {random.Next(1, 100)}",
+            $"Last name {random.Next(1, 100)}",
             new DateTime(random.Next(1900, 2021), random.Next(1, 12), random.Next(1, 28))
         );
 
@@ -77,7 +121,7 @@ public class ResearchTeamCollectionTests
 
         researchTeam.AddPapers(
             new Paper(
-                $"Paper {random.Next(0, 100)}",
+                $"Paper {random.Next(1, 100)}",
                 person,
                 new DateTime(random.Next(1900, 2021), random.Next(1, 12), random.Next(1, 28))
             )
